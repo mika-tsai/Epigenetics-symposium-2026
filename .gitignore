@@ -1,0 +1,36 @@
+.DS_Store
+**/.DS_Store
+.publish-git/
+
+# Local backups and working files
+_portfolio_backup_*/
+主視覺v1_20260504*
+主視覺v2_20260612.png
+主視覺v3_20260612.png
+主視覺v4_20260612.png
+主視覺v5_20260612.png
+主視覺v6_20260612.png
+主視覺v7_20260612.png
+主視覺v8_20260612.png
+IMG_*.PNG
+LINE_ALBUM_*
+*拷貝.*
+
+# Internal planning notes
+活動網站與Google表單待辦.md
+
+# Assets from the previous site that are not used by this event website
+assets/event-hero.png
+assets/speakers/
+assets/logos/academia-sinica-logo.png
+assets/logos/imb-logo-transparent.png
+assets/logos/imb-logo.jpg
+assets/logos/nstc-logo-hq-transparent.png
+assets/logos/nstc-logo-transparent.png
+assets/logos/tes-logo.png
+assets/sponsors/bd.png
+assets/sponsors/bosen.png
+assets/sponsors/genetech.png
+assets/sponsors/hong-jing.png
+assets/sponsors/only-science.png
+assets/sponsors/pharmigene.png
