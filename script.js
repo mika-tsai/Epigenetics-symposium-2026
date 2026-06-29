@@ -115,7 +115,16 @@ speakerEntries.forEach((entry) => {
   const avatar = document.createElement("span");
   avatar.className = "speaker-entry-avatar";
   avatar.setAttribute("aria-hidden", "true");
-  avatar.textContent = initial;
+  if (entry.dataset.photo) {
+    const photo = document.createElement("img");
+    photo.src = entry.dataset.photo;
+    photo.alt = "";
+    photo.loading = "lazy";
+    photo.decoding = "async";
+    avatar.append(photo);
+  } else {
+    avatar.textContent = initial;
+  }
   entry.prepend(avatar);
   entry.classList.add("speaker-entry-enhanced");
   entry.dataset.speakerSearch = normalizeSpeakerText(`${entry.textContent} ${institution}`);
