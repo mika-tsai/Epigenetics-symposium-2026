@@ -203,6 +203,8 @@ const submitButton = registrationForm?.querySelector('button[type="submit"]');
 const registrationSuccess = document.querySelector("#registrationSuccess");
 const successRegistrationId = document.querySelector("#successRegistrationId");
 const successSummary = document.querySelector("#successSummary");
+const emailInput = registrationForm?.elements.namedItem("email");
+const emailPattern = /^[^\s@]+@[^\s@]+\.[A-Za-z]{2,}$/;
 const FORM_DRAFT_KEY = "tes-2026-registration-draft";
 let pendingRegistrationSummary = [];
 let draftSaveTimer;
@@ -365,6 +367,9 @@ updateRegistrationAmount();
 updatePositionField();
 registrationForm?.addEventListener("input", scheduleDraftSave);
 registrationForm?.addEventListener("change", scheduleDraftSave);
+emailInput?.addEventListener("input", () => {
+  emailInput.setCustomValidity("");
+});
 
 const createRegistrationSummary = () => {
   const value = (name) => registrationForm?.elements.namedItem(name)?.value?.trim() || "";
@@ -402,8 +407,13 @@ const createRegistrationSummary = () => {
 
 const renderRegistrationSuccess = (registrationId, summary) => {
   if (!registrationSuccess || !successSummary) return;
+  if (!/^TES26-\d{8}-[A-Z0-9]{6}$/.test(String(registrationId || ""))) {
+    formStatus.textContent = "資料可能已送出，但沒有收到報名編號。請先確認 Google 試算表是否已有新增資料。";
+    return;
+  }
+
   if (successRegistrationId) {
-    successRegistrationId.textContent = registrationId || "待秘書處確認";
+    successRegistrationId.textContent = registrationId;
   }
 
   successSummary.replaceChildren();
@@ -427,6 +437,11 @@ registrationForm?.addEventListener("submit", (event) => {
     event.preventDefault();
     formStatus.textContent = "表單介面已完成，請先設定 Google Apps Script 部署網址後即可正式送出。";
     return;
+  }
+
+  if (emailInput) {
+    const emailValue = emailInput.value.trim();
+    emailInput.setCustomValidity(emailPattern.test(emailValue) ? "" : "請填寫有效的電子信箱，例如 name@example.com");
   }
 
   if (!registrationForm.checkValidity()) {
@@ -471,12 +486,7 @@ submissionFrame?.addEventListener("load", () => {
     if (!submissionInProgress || submissionMessageReceived) return;
     window.clearTimeout(submissionTimeout);
     submissionInProgress = false;
-    formStatus.textContent = "資料已送出，但瀏覽器未收到 Google 回傳確認。請先查看報名試算表是否新增資料；若未新增，請再聯絡秘書處協助確認。";
-    renderRegistrationSuccess("請以試算表紀錄為準", pendingRegistrationSummary);
-    sessionStorage.removeItem(FORM_DRAFT_KEY);
-    registrationForm.reset();
-    updateRegistrationAmount();
-    updatePositionField();
+    formStatus.textContent = "目前沒有收到 Google 試算表的寫入確認，因此先不視為送出成功。請確認 Apps Script 已部署新版，並檢查試算表權限與工作表名稱。";
     if (submitButton) {
       submitButton.disabled = false;
       submitButton.textContent = "送出報名資料";

@@ -605,7 +605,7 @@
               </label>
               <label class="form-field">
                 <span>聯絡信箱 <small>Contact Email</small> <b>*</b></span>
-                <input type="email" name="email" autocomplete="email" required>
+                <input type="email" name="email" autocomplete="email" inputmode="email" pattern="^[^\s@]+@[^\s@]+\.[A-Za-z]{2,}$" title="請填寫有效的電子信箱，例如 name@example.com" required>
               </label>
               <div class="form-field position-field">
                 <span>職稱 <small>Position</small> <b>*</b></span>
@@ -808,6 +808,6 @@
         <a href="mailto:tes20230916@gmail.com">tes20230916@gmail.com</a>
       </div>
     </footer>
-    <script src="script.js?v=20260630-registration-submit-fallback"></script>
+    <script src="script.js?v=20260630-registration-id-display"></script>
   </body>
 </html>

@@ -65,7 +65,8 @@ function getRegistrationSheet_() {
   let sheet = spreadsheet.getSheetByName(SHEET_NAME);
 
   if (!sheet) {
-    sheet = spreadsheet.insertSheet(SHEET_NAME);
+    sheet = spreadsheet.getSheets()[0] || spreadsheet.insertSheet();
+    sheet.setName(SHEET_NAME);
   }
 
   ensureHeaders_(sheet);
@@ -105,7 +106,7 @@ function validateRegistration_(data) {
   if (data.website) throw new Error('資料未通過驗證。');
   if (!text_(data.chineseName)) throw new Error('請填寫中文姓名。');
   if (!text_(data.englishName)) throw new Error('請填寫英文姓名。');
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(text_(data.email))) throw new Error('請填寫有效的聯絡信箱。');
+  if (!/^[^\s@]+@[^\s@]+\.[A-Za-z]{2,}$/.test(text_(data.email))) throw new Error('請填寫有效的聯絡信箱，例如 name@example.com。');
   if (POSITION_OPTIONS.indexOf(data.position) === -1) throw new Error('請選擇職稱。');
   if (data.position === 'Other' && !text_(data.positionOther)) throw new Error('請填寫其他職稱。');
   calculateMembershipTotal_(data.membershipFee);
