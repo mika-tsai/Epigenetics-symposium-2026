@@ -447,10 +447,14 @@ registrationForm?.addEventListener("submit", (event) => {
 
 const submissionFrame = document.querySelector("#registrationSubmitFrame");
 let submissionTimeout;
+let submissionInProgress = false;
+let submissionMessageReceived = false;
 
 registrationForm?.addEventListener("submit", (event) => {
   if (event.defaultPrevented || GOOGLE_APPS_SCRIPT_URL.includes("YOUR_GOOGLE_APPS_SCRIPT")) return;
   window.clearTimeout(submissionTimeout);
+  submissionInProgress = true;
+  submissionMessageReceived = false;
   submissionTimeout = window.setTimeout(() => {
     formStatus.textContent = "目前無法確認是否送出成功，請勿重複送出，並聯絡秘書處協助確認。";
     if (submitButton) {
@@ -460,8 +464,31 @@ registrationForm?.addEventListener("submit", (event) => {
   }, 15000);
 });
 
+submissionFrame?.addEventListener("load", () => {
+  if (!submissionInProgress || submissionMessageReceived) return;
+
+  window.setTimeout(() => {
+    if (!submissionInProgress || submissionMessageReceived) return;
+    window.clearTimeout(submissionTimeout);
+    submissionInProgress = false;
+    formStatus.textContent = "資料已送出，但瀏覽器未收到 Google 回傳確認。請先查看報名試算表是否新增資料；若未新增，請再聯絡秘書處協助確認。";
+    renderRegistrationSuccess("請以試算表紀錄為準", pendingRegistrationSummary);
+    sessionStorage.removeItem(FORM_DRAFT_KEY);
+    registrationForm.reset();
+    updateRegistrationAmount();
+    updatePositionField();
+    if (submitButton) {
+      submitButton.disabled = false;
+      submitButton.textContent = "送出報名資料";
+    }
+  }, 2500);
+});
+
 window.addEventListener("message", (event) => {
-  if (event.source !== submissionFrame?.contentWindow || event.data?.source !== "tes-registration") return;
+  const isGoogleScriptResponse = /^https:\/\/([a-z0-9-]+\.)?(script\.google\.com|googleusercontent\.com)$/i.test(event.origin);
+  if (event.data?.source !== "tes-registration" || !isGoogleScriptResponse) return;
+  submissionMessageReceived = true;
+  submissionInProgress = false;
   window.clearTimeout(submissionTimeout);
 
   if (event.data.ok) {
