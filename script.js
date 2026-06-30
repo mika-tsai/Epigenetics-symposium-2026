@@ -297,10 +297,7 @@ const updateRegistrationAmount = () => {
   const selectedMembership = registrationForm?.querySelector('input[name="membershipFee"]:checked');
   const isTwinRoom = selectedPlan?.value === "雙人房";
   const roommateStatus = registrationForm?.querySelector('input[name="roommateStatus"]:checked')?.value;
-  const needsRoommateName = isTwinRoom && (
-    roommateStatus === "指定另一位會議參加者" ||
-    roommateStatus === "未參加會議之家人"
-  );
+  const needsRoommateName = isTwinRoom && roommateStatus === "指定另一位會議參加者";
 
   if (roommateFields) {
     roommateFields.hidden = !isTwinRoom;

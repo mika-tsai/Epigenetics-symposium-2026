@@ -1048,15 +1048,79 @@ h1,
   font-size: 1.8rem;
 }
 
-.transfer-instructions ul {
+.transfer-flow {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px 32px;
-  padding-left: 20px;
-  color: var(--muted);
+  position: relative;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.transfer-instructions p {
+.transfer-flow li {
+  display: grid;
+  position: relative;
+  grid-template-columns: 48px 170px 1px minmax(0, 1fr);
+  gap: 16px;
+  min-height: 0;
+  padding: 14px 18px;
+  border: 1px solid rgba(133, 158, 184, 0.26);
+  border-radius: 16px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(244, 247, 251, 0.76));
+  box-shadow: 0 10px 24px rgba(16, 36, 62, 0.05);
+  color: var(--muted);
+  align-items: center;
+}
+
+.transfer-flow li::after {
+  display: block;
+  width: 1px;
+  min-height: 64px;
+  background: linear-gradient(180deg, rgba(88, 191, 214, 0), rgba(133, 158, 184, 0.5), rgba(88, 191, 214, 0));
+  content: "";
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: center;
+}
+
+.transfer-flow span {
+  display: grid;
+  position: relative;
+  z-index: 1;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: Arial, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  place-items: center;
+  box-shadow: 0 12px 24px rgba(16, 36, 62, 0.16);
+}
+
+.transfer-flow strong {
+  display: block;
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1.25;
+}
+
+.transfer-flow p {
+  grid-column: 4;
+  align-self: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.55;
+}
+
+.transfer-instructions > p {
   margin: 30px 0 0;
   padding-top: 24px;
   border-top: 1px solid var(--soft-line);
@@ -3565,8 +3629,17 @@ h1,
     padding-left: 20px;
   }
 
-  .transfer-instructions ul {
-    grid-template-columns: 1fr;
+  .transfer-flow li {
+    grid-template-columns: 48px minmax(0, 1fr);
+    padding: 16px;
+  }
+
+  .transfer-flow li::after {
+    display: none;
+  }
+
+  .transfer-flow p {
+    grid-column: 2;
   }
 
   .sponsor-logo-wall {
