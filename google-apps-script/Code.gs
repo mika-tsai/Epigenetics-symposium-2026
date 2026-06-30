@@ -1,3 +1,4 @@
+const SPREADSHEET_ID = '1qkVbyNd1bf3RaXT6AaeHGXEUhh_qM9Xszcj7ii8SlQ0';
 const SHEET_NAME = '報名資料';
 const POSITION_OPTIONS = ['PI', 'Postdoc', 'Student', 'Research Assistant', 'Other'];
 const DIET_OPTIONS = ['Regular（葷）', 'Vegetarian（素）'];
@@ -60,7 +61,7 @@ function doPost(e) {
 }
 
 function getRegistrationSheet_() {
-  const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
   let sheet = spreadsheet.getSheetByName(SHEET_NAME);
 
   if (!sheet) {
@@ -111,7 +112,7 @@ function validateRegistration_(data) {
   calculateRegistrationTotal_(data.registrationPlan, data.roommateStatus);
   if (
     data.registrationPlan === '雙人房' &&
-    (data.roommateStatus === '指定另一位會議參加者' || data.roommateStatus === '未參加會議之家人') &&
+    data.roommateStatus === '指定另一位會議參加者' &&
     !text_(data.roommateName)
   ) {
     throw new Error('請填寫指定同住人姓名。');
