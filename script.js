@@ -2,6 +2,13 @@ const navToggle = document.querySelector(".nav-toggle");
 const mainNav = document.querySelector("#mainNav");
 const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby16BNWFNLwIDFzyuSBuC1rNnD4xtEljustj4Rv6j4sUqvqZfxORj4oc_J0GApGJZKEjw/exec";
 
+document.querySelectorAll("[data-open-new-page]").forEach((link) => {
+  link.addEventListener("click", (event) => {
+    event.preventDefault();
+    window.open(link.href, "_blank", "noopener,noreferrer");
+  });
+});
+
 navToggle?.addEventListener("click", () => {
   const isOpen = mainNav?.classList.toggle("open");
   navToggle.setAttribute("aria-expanded", String(Boolean(isOpen)));
