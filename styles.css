@@ -3189,7 +3189,7 @@ h1,
   .speakers-page main {
     width: min(1840px, 100%);
     margin: 0 auto;
-    padding-right: clamp(132px, 8vw, 190px);
+    padding-right: clamp(18px, 2vw, 42px);
     padding-left: clamp(18px, 2vw, 42px);
   }
 
@@ -3202,7 +3202,31 @@ h1,
   }
 
   .speakers-page .floating-actions {
-    right: clamp(18px, 2vw, 34px);
+    top: auto;
+    right: max(18px, env(safe-area-inset-right));
+    bottom: max(18px, env(safe-area-inset-bottom));
+    left: max(18px, env(safe-area-inset-left));
+    width: min(1500px, calc(100% - 36px));
+    margin: 0 auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    transform: none;
+  }
+
+  .speakers-page .floating-action {
+    width: auto;
+    min-height: 84px;
+    align-items: center;
+    border-radius: 30px;
+    text-align: center;
+  }
+
+  .speakers-page .floating-action span {
+    font-size: clamp(1.18rem, 1.7vw, 1.75rem);
+  }
+
+  .speakers-page .floating-action:hover {
+    transform: translateY(-3px);
   }
 }
 
@@ -3221,7 +3245,9 @@ h1,
     right: max(18px, env(safe-area-inset-right));
     bottom: max(18px, env(safe-area-inset-bottom));
     left: max(18px, env(safe-area-inset-left));
+    width: auto;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
     transform: none;
   }
 
