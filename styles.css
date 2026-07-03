@@ -2387,9 +2387,9 @@ h1,
 .speakers-hero {
   display: grid;
   align-items: stretch;
-  grid-template-columns: 1.2fr 0.8fr;
+  grid-template-columns: minmax(0, 1.2fr) minmax(340px, 0.8fr);
   gap: 0;
-  width: min(1360px, calc(100% - 28px));
+  width: min(1480px, calc(100% - 28px));
   min-height: 360px;
   margin: 0 auto;
   overflow: hidden;
@@ -2403,14 +2403,16 @@ h1,
 
 .speakers-hero-title {
   display: flex;
-  padding: 64px max(38px, calc((100vw - 1180px) / 2));
+  min-width: 0;
+  padding: clamp(54px, 5.2vw, 86px);
   flex-direction: column;
   justify-content: flex-end;
 }
 
 .speakers-hero h1 {
+  max-width: 820px;
   margin-bottom: 22px;
-  font-size: clamp(3rem, 6vw, 6.2rem);
+  font-size: clamp(3.8rem, 7.2vw, 7.5rem);
   letter-spacing: -0.06em;
   line-height: 0.95;
 }
@@ -2563,8 +2565,8 @@ h1,
 }
 
 .invited-section {
-  width: min(1360px, calc(100% - 28px));
-  padding: 126px max(26px, calc((100% - 1200px) / 2));
+  width: min(1480px, calc(100% - 28px));
+  padding: clamp(82px, 7vw, 126px) clamp(22px, 4vw, 58px);
   overflow: hidden;
   border: 1px solid var(--soft-line);
   border-radius: var(--radius-lg);
@@ -2974,6 +2976,7 @@ h1,
 .speaker-directory-list > :is(div, a) {
   position: relative;
   display: flex;
+  min-width: 0;
   min-height: 106px;
   padding: 20px 24px;
   border-top: 1px solid var(--soft-line);
@@ -3121,7 +3124,7 @@ h1,
 .university-entry {
   grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: minmax(230px, 0.8fr) minmax(0, 2.2fr);
+  grid-template-columns: minmax(220px, 300px) minmax(0, 1fr);
   overflow: hidden;
   border: 1px solid var(--soft-line);
   border-radius: 14px;
@@ -3180,6 +3183,58 @@ h1,
   width: var(--page);
   margin: 0 auto;
   padding: 90px 0;
+}
+
+@media (min-width: 1181px) {
+  .speakers-page main {
+    width: min(1840px, 100%);
+    margin: 0 auto;
+    padding-right: clamp(132px, 8vw, 190px);
+    padding-left: clamp(18px, 2vw, 42px);
+  }
+
+  .speakers-page .speakers-hero,
+  .speakers-page .keynote-section,
+  .speakers-page .invited-section,
+  .speakers-page .speakers-cta {
+    width: 100%;
+    max-width: none;
+  }
+
+  .speakers-page .floating-actions {
+    right: clamp(18px, 2vw, 34px);
+  }
+}
+
+@media (max-width: 1320px) and (min-width: 821px) {
+  .speakers-page {
+    padding-bottom: 104px;
+  }
+
+  .speakers-page main {
+    width: min(1180px, calc(100% - 28px));
+    margin: 0 auto;
+  }
+
+  .speakers-page .floating-actions {
+    top: auto;
+    right: max(18px, env(safe-area-inset-right));
+    bottom: max(18px, env(safe-area-inset-bottom));
+    left: max(18px, env(safe-area-inset-left));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    transform: none;
+  }
+
+  .speakers-page .floating-action {
+    width: auto;
+    min-height: 66px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .speakers-page .floating-action:hover {
+    transform: translateY(-2px);
+  }
 }
 
 .speakers-cta h2 {
