@@ -510,6 +510,7 @@ h1,
   border: 1px solid rgba(88, 191, 214, 0.2);
   border-radius: 22px;
   background: rgba(255, 255, 255, 0.08);
+  min-width: 0;
 }
 
 .about-metrics span,
@@ -528,10 +529,11 @@ h1,
   display: block;
   color: var(--paper);
   font-family: Arial, sans-serif;
-  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-size: clamp(2rem, 3.2vw, 3.1rem);
   font-weight: 900;
   letter-spacing: -0.07em;
   line-height: 0.95;
+  overflow-wrap: anywhere;
 }
 
 .about-metrics small {
@@ -574,8 +576,8 @@ h1,
   background:
     radial-gradient(circle at 92% 0%, rgba(88, 191, 214, 0.18), transparent 15rem),
     rgba(255, 255, 255, 0.08);
-  grid-column: 1;
-  grid-row: 2;
+  grid-column: 1 / -1;
+  grid-row: 3;
 }
 
 .venue-card h2 {
