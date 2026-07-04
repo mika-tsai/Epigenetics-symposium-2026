@@ -128,6 +128,18 @@ speakerEntries.forEach((entry) => {
     photo.alt = "";
     photo.loading = "lazy";
     photo.decoding = "async";
+    if (entry.dataset.photoPosition) {
+      photo.style.setProperty("--avatar-position", entry.dataset.photoPosition);
+    }
+    if (entry.dataset.photoZoom) {
+      photo.style.setProperty("--avatar-zoom", entry.dataset.photoZoom);
+    }
+    if (entry.dataset.photoShiftX) {
+      photo.style.setProperty("--avatar-shift-x", entry.dataset.photoShiftX);
+    }
+    if (entry.dataset.photoShiftY) {
+      photo.style.setProperty("--avatar-shift-y", entry.dataset.photoShiftY);
+    }
     avatar.append(photo);
   } else {
     avatar.textContent = initial;
