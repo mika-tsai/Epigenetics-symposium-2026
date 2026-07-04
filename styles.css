@@ -689,8 +689,8 @@ h1,
 }
 
 .program-section {
-  width: min(1360px, calc(100% - 28px));
-  padding: 130px max(26px, calc((100% - 1200px) / 2));
+  width: min(1680px, calc(100% - 220px));
+  padding: clamp(104px, 6.8vw, 132px) clamp(34px, 4.8vw, 88px);
   overflow: hidden;
   border-radius: var(--radius-lg);
   background:
@@ -728,7 +728,7 @@ h1,
 .program-days {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
+  gap: clamp(22px, 2.2vw, 36px);
 }
 
 .program-day {
@@ -743,8 +743,8 @@ h1,
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  min-height: 138px;
-  padding: 30px;
+  min-height: clamp(138px, 10vw, 176px);
+  padding: clamp(28px, 2.4vw, 42px);
   background: var(--sand);
 }
 
@@ -757,23 +757,24 @@ h1,
 }
 
 .program-day > header h3 {
-  max-width: 260px;
+  max-width: 360px;
   margin: 0;
-  font-size: 1.55rem;
+  font-size: clamp(1.45rem, 1.45vw, 2rem);
   letter-spacing: -0.025em;
   line-height: 1.25;
   text-align: right;
 }
 
 .program-list {
-  padding: 8px 28px 18px;
+  --program-list-pad: clamp(26px, 2vw, 34px);
+  padding: 10px var(--program-list-pad) 22px;
 }
 
 .program-item {
   display: grid;
-  grid-template-columns: 108px minmax(0, 1fr);
-  gap: 18px;
-  padding: 20px 0;
+  grid-template-columns: clamp(118px, 8vw, 148px) minmax(0, 1fr);
+  gap: clamp(18px, 1.8vw, 28px);
+  padding: clamp(20px, 1.7vw, 28px) 0;
   border-bottom: 1px solid var(--soft-line);
 }
 
@@ -782,7 +783,7 @@ h1,
 }
 
 .program-item time {
-  font-size: 0.78rem;
+  font-size: clamp(0.8rem, 0.74vw, 0.94rem);
   font-weight: 900;
   letter-spacing: -0.02em;
   white-space: nowrap;
@@ -790,14 +791,14 @@ h1,
 
 .program-item h4 {
   margin: 0 0 3px;
-  font-size: 1rem;
+  font-size: clamp(1rem, 0.9vw, 1.16rem);
   line-height: 1.4;
 }
 
 .program-item p {
   margin: 0;
   color: var(--muted);
-  font-size: 0.82rem;
+  font-size: clamp(0.84rem, 0.78vw, 0.98rem);
   line-height: 1.55;
 }
 
@@ -805,10 +806,10 @@ h1,
 .program-item.parallel {
   margin-top: 0;
   margin-bottom: 0;
-  margin-right: -28px;
-  margin-left: -28px;
-  padding-right: 28px;
-  padding-left: 28px;
+  margin-right: calc(-1 * var(--program-list-pad));
+  margin-left: calc(-1 * var(--program-list-pad));
+  padding-right: var(--program-list-pad);
+  padding-left: var(--program-list-pad);
   background: rgba(217, 228, 239, 0.45);
 }
 
@@ -827,6 +828,37 @@ h1,
 .program-note {
   margin: 24px 0 0;
   font-size: 0.78rem;
+}
+
+@media (max-width: 1440px) {
+  .program-section {
+    width: min(1280px, calc(100% - 28px));
+    padding-right: clamp(26px, 3vw, 46px);
+    padding-left: clamp(26px, 3vw, 46px);
+  }
+
+  .program-days {
+    gap: 22px;
+  }
+
+  .program-item {
+    grid-template-columns: 112px minmax(0, 1fr);
+    gap: 18px;
+  }
+}
+
+@media (max-width: 1180px) {
+  .program-section {
+    width: calc(100% - 20px);
+  }
+
+  .program-days {
+    grid-template-columns: 1fr;
+  }
+
+  .program-day > header h3 {
+    max-width: 520px;
+  }
 }
 
 .fee-grid {
