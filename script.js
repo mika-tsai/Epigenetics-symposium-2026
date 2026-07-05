@@ -220,7 +220,6 @@ const submittedAt = document.querySelector("#submittedAt");
 const formStatus = document.querySelector("#formStatus");
 const submitButton = registrationForm?.querySelector('button[type="submit"]');
 const registrationSuccess = document.querySelector("#registrationSuccess");
-const successRegistrationId = document.querySelector("#successRegistrationId");
 const successSummary = document.querySelector("#successSummary");
 const emailInput = registrationForm?.elements.namedItem("email");
 const emailPattern = /^[^\s@]+@[^\s@]+\.[A-Za-z]{2,}$/;
@@ -424,13 +423,8 @@ const createRegistrationSummary = () => {
   return summary;
 };
 
-const renderRegistrationSuccess = (registrationId, summary) => {
+const renderRegistrationSuccess = (summary) => {
   if (!registrationSuccess || !successSummary) return;
-  const hasRegistrationId = /^TES26-\d{8}-[A-Z0-9]{6}$/.test(String(registrationId || ""));
-
-  if (successRegistrationId) {
-    successRegistrationId.textContent = hasRegistrationId ? registrationId : "請以試算表紀錄為準";
-  }
 
   successSummary.replaceChildren();
   summary.forEach(([label, value]) => {
@@ -502,8 +496,8 @@ submissionFrame?.addEventListener("load", () => {
     if (!submissionInProgress || submissionMessageReceived) return;
     window.clearTimeout(submissionTimeout);
     submissionInProgress = false;
-    formStatus.textContent = "報名資料已送出。若未顯示報名編號，請以 Google 試算表新增紀錄為準，秘書處仍會核對會員資格及款項。";
-    renderRegistrationSuccess(null, pendingRegistrationSummary);
+    formStatus.textContent = "報名資料已送出。秘書處將核對會員資格及款項。";
+    renderRegistrationSuccess(pendingRegistrationSummary);
     sessionStorage.removeItem(FORM_DRAFT_KEY);
     registrationForm.reset();
     updateRegistrationAmount();
@@ -523,8 +517,8 @@ window.addEventListener("message", (event) => {
   window.clearTimeout(submissionTimeout);
 
   if (event.data.ok) {
-    formStatus.textContent = "報名資料已送出。請保存報名編號，並等待秘書處確認會員資格及款項。";
-    renderRegistrationSuccess(event.data.registrationId, pendingRegistrationSummary);
+    formStatus.textContent = "報名資料已送出。請等待秘書處確認會員資格及款項。";
+    renderRegistrationSuccess(pendingRegistrationSummary);
     sessionStorage.removeItem(FORM_DRAFT_KEY);
     registrationForm.reset();
     updateRegistrationAmount();
