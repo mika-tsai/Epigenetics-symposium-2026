@@ -7,8 +7,292 @@
     <meta name="description" content="2026 表觀遺傳學國際研討會暨台灣表觀遺傳學會年會，2026 年 10 月 16 日至 17 日於台南遠東香格里拉飯店舉行。">
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link rel="preload" href="主視覺v9_20260612.png" as="image">
-    <link rel="stylesheet" href="styles.css?v=20260703-about-layout-fix">
-  </head>
+    <link rel="stylesheet" href="styles.css?v=20260709-readable-keynote">
+    <style>
+        #sponsors a[href],
+        #sponsor a[href],
+        .sponsors a[href],
+        .sponsor-section a[href],
+        .sponsor-grid a[href],
+        a.sponsor-card[href],
+        a[class*="sponsor-card"][href],
+        a[class*="sponsor-logo"][href],
+        a[class*="sponsor-item"][href] {
+            position: relative;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        #sponsors a[href]::after,
+        #sponsor a[href]::after,
+        .sponsors a[href]::after,
+        .sponsor-section a[href]::after,
+        .sponsor-grid a[href]::after,
+        a.sponsor-card[href]::after,
+        a[class*="sponsor-card"][href]::after,
+        a[class*="sponsor-logo"][href]::after,
+        a[class*="sponsor-item"][href]::after {
+            content: "前往官網 ↗";
+            position: absolute;
+            right: clamp(16px, 2vw, 30px);
+            bottom: clamp(14px, 2vw, 28px);
+            z-index: 2;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 38px;
+            padding: 0 1rem;
+            border: 1px solid rgba(92, 203, 225, 0.76);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.96);
+            color: #102841;
+            font-size: clamp(0.74rem, 0.72vw, 0.9rem);
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            box-shadow: 0 12px 30px rgba(9, 31, 52, 0.16);
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        #sponsors a[href]:hover,
+        #sponsors a[href]:focus-visible,
+        #sponsor a[href]:hover,
+        #sponsor a[href]:focus-visible,
+        .sponsors a[href]:hover,
+        .sponsors a[href]:focus-visible,
+        .sponsor-section a[href]:hover,
+        .sponsor-section a[href]:focus-visible,
+        .sponsor-grid a[href]:hover,
+        .sponsor-grid a[href]:focus-visible,
+        a.sponsor-card[href]:hover,
+        a.sponsor-card[href]:focus-visible,
+        a[class*="sponsor-card"][href]:hover,
+        a[class*="sponsor-card"][href]:focus-visible,
+        a[class*="sponsor-logo"][href]:hover,
+        a[class*="sponsor-logo"][href]:focus-visible,
+        a[class*="sponsor-item"][href]:hover,
+        a[class*="sponsor-item"][href]:focus-visible {
+            border-color: rgba(92, 203, 225, 0.98);
+            box-shadow: 0 24px 52px rgba(9, 31, 52, 0.2);
+            transform: translateY(-3px);
+        }
+
+        #sponsors a[href]:focus-visible,
+        #sponsor a[href]:focus-visible,
+        .sponsors a[href]:focus-visible,
+        .sponsor-section a[href]:focus-visible,
+        .sponsor-grid a[href]:focus-visible,
+        a.sponsor-card[href]:focus-visible,
+        a[class*="sponsor-card"][href]:focus-visible,
+        a[class*="sponsor-logo"][href]:focus-visible,
+        a[class*="sponsor-item"][href]:focus-visible {
+            outline: 3px solid rgba(92, 203, 225, 0.42);
+            outline-offset: 5px;
+        }
+
+        @media (max-width: 720px) {
+            #sponsors a[href]::after,
+            #sponsor a[href]::after,
+            .sponsors a[href]::after,
+            .sponsor-section a[href]::after,
+            .sponsor-grid a[href]::after,
+            a.sponsor-card[href]::after,
+            a[class*="sponsor-card"][href]::after,
+            a[class*="sponsor-logo"][href]::after,
+            a[class*="sponsor-item"][href]::after {
+                right: 14px;
+                bottom: 14px;
+                min-height: 34px;
+                padding: 0 0.85rem;
+                font-size: 0.72rem;
+            }
+        }
+    </style>
+    <style>
+        /* Linked sponsor cards need to read as clickable, not just decorative logos. */
+        #sponsors a[href],
+        #sponsor a[href],
+        .sponsors a[href],
+        .sponsor-section a[href],
+        .sponsor-grid a[href],
+        a.sponsor-card[href],
+        a[class*="sponsor-card"][href],
+        a[class*="sponsor-logo"][href],
+        a[class*="sponsor-item"][href] {
+            position: relative;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+
+        #sponsors a[href]::after,
+        #sponsor a[href]::after,
+        .sponsors a[href]::after,
+        .sponsor-section a[href]::after,
+        .sponsor-grid a[href]::after,
+        a.sponsor-card[href]::after,
+        a[class*="sponsor-card"][href]::after,
+        a[class*="sponsor-logo"][href]::after,
+        a[class*="sponsor-item"][href]::after {
+            content: "前往官網 ↗";
+            position: absolute;
+            right: clamp(14px, 1.8vw, 26px);
+            bottom: clamp(14px, 1.8vw, 24px);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.55rem 0.85rem;
+            border: 1px solid rgba(22, 42, 70, 0.18);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.94);
+            color: #162A46;
+            font-size: clamp(0.78rem, 0.75vw, 0.92rem);
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            box-shadow: 0 10px 24px rgba(22, 42, 70, 0.12);
+            pointer-events: none;
+        }
+
+        #sponsors a[href]:hover,
+        #sponsors a[href]:focus-visible,
+        #sponsor a[href]:hover,
+        #sponsor a[href]:focus-visible,
+        .sponsors a[href]:hover,
+        .sponsors a[href]:focus-visible,
+        .sponsor-section a[href]:hover,
+        .sponsor-section a[href]:focus-visible,
+        .sponsor-grid a[href]:hover,
+        .sponsor-grid a[href]:focus-visible,
+        a.sponsor-card[href]:hover,
+        a.sponsor-card[href]:focus-visible,
+        a[class*="sponsor-card"][href]:hover,
+        a[class*="sponsor-card"][href]:focus-visible,
+        a[class*="sponsor-logo"][href]:hover,
+        a[class*="sponsor-logo"][href]:focus-visible,
+        a[class*="sponsor-item"][href]:hover,
+        a[class*="sponsor-item"][href]:focus-visible {
+            transform: translateY(-4px);
+            border-color: rgba(103, 202, 220, 0.72);
+            box-shadow: 0 22px 44px rgba(22, 42, 70, 0.16);
+            outline: none;
+        }
+
+        #sponsors a[href]:hover::after,
+        #sponsors a[href]:focus-visible::after,
+        #sponsor a[href]:hover::after,
+        #sponsor a[href]:focus-visible::after,
+        .sponsors a[href]:hover::after,
+        .sponsors a[href]:focus-visible::after,
+        .sponsor-section a[href]:hover::after,
+        .sponsor-section a[href]:focus-visible::after,
+        .sponsor-grid a[href]:hover::after,
+        .sponsor-grid a[href]:focus-visible::after,
+        a.sponsor-card[href]:hover::after,
+        a.sponsor-card[href]:focus-visible::after,
+        a[class*="sponsor-card"][href]:hover::after,
+        a[class*="sponsor-card"][href]:focus-visible::after,
+        a[class*="sponsor-logo"][href]:hover::after,
+        a[class*="sponsor-logo"][href]:focus-visible::after,
+        a[class*="sponsor-item"][href]:hover::after,
+        a[class*="sponsor-item"][href]:focus-visible::after {
+            background: #162A46;
+            color: #fff;
+            border-color: #162A46;
+        }
+
+        @media (max-width: 720px) {
+            #sponsors a[href]::after,
+            #sponsor a[href]::after,
+            .sponsors a[href]::after,
+            .sponsor-section a[href]::after,
+            .sponsor-grid a[href]::after,
+            a.sponsor-card[href]::after,
+            a[class*="sponsor-card"][href]::after,
+            a[class*="sponsor-logo"][href]::after,
+            a[class*="sponsor-item"][href]::after {
+                right: 12px;
+                bottom: 12px;
+                padding: 0.45rem 0.7rem;
+                font-size: 0.72rem;
+            }
+        }
+    </style>
+    <style>
+        /* Make linked sponsor cards visibly clickable. */
+        #sponsors a[href],
+        .sponsors a[href],
+        .sponsor-grid a[href],
+        .sponsor-showcase a[href],
+        a.sponsor-card[href],
+        a[class*="sponsor"][href] {
+            position: relative;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+
+        #sponsors a[href]::after,
+        .sponsors a[href]::after,
+        .sponsor-grid a[href]::after,
+        .sponsor-showcase a[href]::after,
+        a.sponsor-card[href]::after,
+        a[class*="sponsor"][href]::after {
+            content: "前往官網 ↗";
+            position: absolute;
+            right: clamp(12px, 1.6vw, 24px);
+            bottom: clamp(12px, 1.6vw, 22px);
+            z-index: 2;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem 0.78rem;
+            border: 1px solid rgba(22, 42, 70, 0.18);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.96);
+            color: #162A46;
+            box-shadow: 0 10px 24px rgba(22, 42, 70, 0.12);
+            font-size: clamp(0.72rem, 0.76vw, 0.9rem);
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        #sponsors a[href]:hover,
+        #sponsors a[href]:focus-visible,
+        .sponsors a[href]:hover,
+        .sponsors a[href]:focus-visible,
+        .sponsor-grid a[href]:hover,
+        .sponsor-grid a[href]:focus-visible,
+        .sponsor-showcase a[href]:hover,
+        .sponsor-showcase a[href]:focus-visible,
+        a.sponsor-card[href]:hover,
+        a.sponsor-card[href]:focus-visible,
+        a[class*="sponsor"][href]:hover,
+        a[class*="sponsor"][href]:focus-visible {
+            transform: translateY(-4px);
+            border-color: rgba(103, 202, 220, 0.72);
+            box-shadow: 0 22px 44px rgba(22, 42, 70, 0.16);
+            outline: none;
+        }
+
+        #sponsors a[href]:hover::after,
+        #sponsors a[href]:focus-visible::after,
+        .sponsors a[href]:hover::after,
+        .sponsors a[href]:focus-visible::after,
+        .sponsor-grid a[href]:hover::after,
+        .sponsor-grid a[href]:focus-visible::after,
+        .sponsor-showcase a[href]:hover::after,
+        .sponsor-showcase a[href]:focus-visible::after,
+        a.sponsor-card[href]:hover::after,
+        a.sponsor-card[href]:focus-visible::after,
+        a[class*="sponsor"][href]:hover::after,
+        a[class*="sponsor"][href]:focus-visible::after {
+            background: #162A46;
+            color: #fff;
+        }
+    </style>
+</head>
   <body>
     <a class="skip-link" href="#mainContent">跳至主要內容</a>
     <header class="site-header">
@@ -33,6 +317,10 @@
       <a class="floating-action secondary" href="https://docs.google.com/forms/d/e/1FAIpQLScxBQUKGVQQGh0IkMHBp9uGEyiG6bbuo1hC9bVeczIrFh-U7w/viewform" target="_blank" rel="noopener noreferrer" data-open-new-page>
         <span>入會申請</span>
         <small>Membership</small>
+      </a>
+      <a class="floating-action logo-action" href="https://www.facebook.com/Epigenetics.and.Chromatin/" target="_blank" rel="noopener noreferrer" aria-label="前往台灣表觀遺傳學會 Facebook" data-open-new-page>
+        <img src="assets/logos/tes-society-logo.png" alt="" loading="lazy" decoding="async">
+        <small>Society</small>
       </a>
     </nav>
 
@@ -138,112 +426,6 @@
             <a class="text-link" href="https://maps.google.com/?q=台南遠東香格里拉飯店" target="_blank" rel="noreferrer">查看地圖</a>
           </article>
         </div>
-      </section>
-
-      <section class="section speaker-preview-section" id="speakers">
-        <div class="section-heading">
-          <p class="eyebrow">Featured Speakers</p>
-          <h2>Keynote Speakers</h2>
-          <p>Three international keynote speakers will share current advances in epigenetics and genomic regulation.</p>
-        </div>
-        <div class="keynote-preview-grid">
-          <article class="keynote-preview-card">
-            <span class="speaker-monogram">
-              <img src="assets/speakers/wan-yue.png" alt="Dr. Wan Yue" loading="lazy" decoding="async" style="--avatar-position: 50% 42%; --avatar-zoom: 1.08;">
-            </span>
-            <div>
-              <p>Genome Institute of Singapore, A*STAR</p>
-              <h3>Dr. Wan Yue</h3>
-              <span>Singapore</span>
-            </div>
-          </article>
-          <article class="keynote-preview-card">
-            <span class="speaker-monogram">
-              <img src="assets/speakers/xiao-wang.png" alt="Dr. Xiao Wang" loading="lazy" decoding="async" style="--avatar-position: 50% 42%; --avatar-zoom: 1.1;">
-            </span>
-            <div>
-              <p>Massachusetts Institute of Technology</p>
-              <h3><span>Dr. Xiao Wang</span><small>王瀟</small></h3>
-              <span>Cambridge, USA</span>
-            </div>
-          </article>
-          <article class="keynote-preview-card">
-            <span class="speaker-monogram">
-              <img src="assets/speakers/hsiu-chuan-lin-crop.png" alt="Dr. Hsiu-Chuan Lin" loading="lazy" decoding="async" style="--avatar-position: 50% 50%; --avatar-zoom: 1;">
-            </span>
-            <div>
-              <p>Centre for Genomic Regulation</p>
-              <h3><span>Dr. Hsiu-Chuan Lin</span><small>林秀娟</small></h3>
-              <span>Barcelona, Spain</span>
-            </div>
-          </article>
-        </div>
-
-        <div class="invited-preview-header">
-          <div>
-            <p class="eyebrow">Invited Speakers</p>
-            <h3>邀請講者</h3>
-            <p>來自中央研究院與國內外大專院校的研究學者；左右滑動瀏覽部分名單。</p>
-          </div>
-          <div class="speaker-slider-controls" aria-label="邀請講者滑動控制">
-            <button type="button" data-speaker-scroll="-1" aria-label="向左瀏覽講者">←</button>
-            <button type="button" data-speaker-scroll="1" aria-label="向右瀏覽講者">→</button>
-          </div>
-        </div>
-        <div class="invited-speaker-slider" id="invitedSpeakerSlider" tabindex="0" aria-label="部分邀請講者">
-          <article class="invited-preview-card">
-            <span class="speaker-preview-avatar">
-              <img src="assets/speakers/lin-chao-po.jpeg" alt="林照博" loading="lazy" decoding="async" style="--avatar-position: 50% 28%; --avatar-zoom: 1.06; --avatar-shift-y: 0%;">
-            </span>
-            <div><h4>林照博</h4><p>上海科技大學</p></div>
-          </article>
-          <article class="invited-preview-card">
-            <span class="speaker-preview-avatar">
-              <img src="assets/speakers/wu-dunren.jpg" alt="吳敦仁" loading="lazy" decoding="async" style="--avatar-position: 47% 43%; --avatar-zoom: 1.4; --avatar-shift-x: -2%; --avatar-shift-y: 1%;">
-            </span>
-            <div><h4>吳敦仁</h4><p>中央研究院分子生物研究所</p></div>
-          </article>
-          <article class="invited-preview-card">
-            <span class="speaker-preview-avatar">
-              <img src="assets/speakers/hsia-gwo-chiang.jpg" alt="夏國強" loading="lazy" decoding="async" style="--avatar-position: 44% 40%; --avatar-zoom: 1.46; --avatar-shift-x: -3%; --avatar-shift-y: 2%;">
-            </span>
-            <div><h4>夏國強</h4><p>中央研究院分子生物研究所</p></div>
-          </article>
-          <article class="invited-preview-card">
-            <span class="speaker-preview-avatar">
-              <img src="assets/speakers/chen-liu-yow.jpg" alt="陳律佑" loading="lazy" decoding="async" style="--avatar-position: 64% 42%; --avatar-zoom: 1.6; --avatar-shift-y: 2%;">
-            </span>
-            <div><h4>陳律佑</h4><p>中央研究院分子生物研究所</p></div>
-          </article>
-          <article class="invited-preview-card">
-            <span class="speaker-preview-avatar">
-              <img src="assets/speakers/chen-sheng-hong.jpg" alt="陳昇宏" loading="lazy" decoding="async" style="--avatar-position: 50% 50%; --avatar-zoom: 1.42; --avatar-shift-y: -10%;">
-            </span>
-            <div><h4>陳昇宏</h4><p>中央研究院分子生物研究所</p></div>
-          </article>
-          <article class="invited-preview-card">
-            <span class="speaker-preview-avatar">
-              <img src="assets/speakers/kuo-huei-shu.jpg" alt="郭惠思" loading="lazy" decoding="async" style="--avatar-position: 49% 41%; --avatar-zoom: 1.5; --avatar-shift-x: -1%; --avatar-shift-y: 2%;">
-            </span>
-            <div><h4>郭惠思</h4><p>中央研究院分子生物研究所</p></div>
-          </article>
-          <article class="invited-preview-card">
-            <span class="speaker-preview-avatar">
-              <img src="assets/speakers/chen-yu-ju-crop.png" alt="陳玉如" loading="lazy" decoding="async" style="--avatar-position: 50% 50%; --avatar-zoom: 1.12; --avatar-shift-y: 0%;">
-            </span>
-            <div><h4>陳玉如</h4><p>中央研究院化學研究所</p></div>
-          </article>
-          <article class="invited-preview-card">
-            <span class="speaker-preview-avatar">
-              <img src="assets/speakers/chen-kuang-chao-avatar.jpeg" alt="陳光超" loading="lazy" decoding="async" style="--avatar-position: 50% 50%; --avatar-zoom: 1.45; --avatar-shift-y: 18%;">
-            </span>
-            <div><h4>陳光超</h4><p>中央研究院生物化學研究所</p></div>
-          </article>
-        </div>
-        <a class="speakers-page-link" href="speakers.html">
-          <span>查看全部講者與所屬機構</span>
-          <span aria-hidden="true">→</span>
-        </a>
       </section>
 
       <section class="section program-section" id="program">
@@ -601,10 +783,9 @@
         </div>
         <div class="contact-panel">
           <div class="contact-identity">
-            <img class="contact-logo" src="assets/logos/tes-logo-hq.png" alt="台灣表觀遺傳學會 Taiwan Epigenetics Society logo" loading="lazy" decoding="async">
-            <div>
-              <h3>台灣表觀遺傳學會</h3>
-              <p lang="en">Taiwan Epigenetics Society (TES)</p>
+            <div class="contact-logo-row">
+              <img class="contact-logo" src="assets/logos/ncku-logo.png" alt="國立成功大學 logo" loading="lazy" decoding="async">
+              <img class="contact-logo" src="assets/logos/tes-logo-hq.png" alt="台灣表觀遺傳學會 Taiwan Epigenetics Society logo" loading="lazy" decoding="async">
             </div>
           </div>
           <dl class="contact-people">
@@ -680,13 +861,13 @@
 
           <fieldset class="form-section">
             <legend><span>02</span> 會員相關費用</legend>
-            <p class="form-section-note">本次活動僅限會員報名。尚未入會者請先填寫入會申請表，再於此選擇新入會費用；已是會員但尚未繳交 2026 年費者，請選擇年費項目。入會費、年費可與報名費一併匯款。</p>
+            <p class="form-section-note">本次活動僅限會員報名。尚未入會者請先填寫<a href="https://docs.google.com/forms/d/e/1FAIpQLScxBQUKGVQQGh0IkMHBp9uGEyiG6bbuo1hC9bVeczIrFh-U7w/viewform" target="_blank" rel="noopener noreferrer" data-open-new-page>入會申請表</a>，可查看章程以及入會申請表，再於此選擇新入會費用；已是會員但尚未繳交 2026 年費者，請選擇年費項目。入會費、年費可與報名費一併匯款。</p>
             <div class="choice-grid membership-options">
               <label class="choice-card">
-                <input type="radio" name="membershipFee" value="不一併繳納" data-amount="0" checked required>
+                <input type="radio" name="membershipFee" value="已繳交會費" data-amount="0" checked required>
                 <span>
                   <strong>NT$0</strong>
-                  <small>不一併繳納</small>
+                  <small>已繳交會費</small>
                 </span>
               </label>
               <label class="choice-card">
@@ -848,7 +1029,8 @@
         </section>
         <iframe class="submission-frame" id="registrationSubmitFrame" name="registrationSubmitFrame" title="報名資料送出結果"></iframe>
       </section>
-    </main>
+
+</main>
 
     <button class="back-to-top" type="button" aria-label="回到頁面頂端" title="回到頂端">
       <span aria-hidden="true">↑</span>
