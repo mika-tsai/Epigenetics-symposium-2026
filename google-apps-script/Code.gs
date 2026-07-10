@@ -1,9 +1,10 @@
 const SPREADSHEET_ID = '1qkVbyNd1bf3RaXT6AaeHGXEUhh_qM9Xszcj7ii8SlQ0';
 const SHEET_NAME = '報名資料';
+const TEXT_ONLY_HEADERS = ['匯款帳號後五碼', '統一編號'];
 const POSITION_OPTIONS = ['PI', 'Postdoc', 'Student', 'Research Assistant', 'Other'];
 const DIET_OPTIONS = ['Regular（葷）', 'Vegetarian（素）'];
 const MEMBERSHIP_FEES = {
-  '不一併繳納': 0,
+  '已繳交會費': 0,
   '個人新入會（入會費＋年費）': 1200,
   '學生新入會（入會費＋年費）': 500,
   '個人年費': 500,
@@ -25,7 +26,7 @@ function doPost(e) {
 
     try {
       const sheet = getRegistrationSheet_();
-      sheet.appendRow([
+      const rowValues = [
         new Date(),
         safeCell_(data.submittedAt),
         safeCell_(data.chineseName),
@@ -47,7 +48,9 @@ function doPost(e) {
         safeCell_(data.consent),
         '待確認',
         registrationId
-      ]);
+      ];
+
+      appendRegistrationRow_(sheet, rowValues);
     } finally {
       lock.releaseLock();
     }
@@ -100,6 +103,35 @@ function ensureHeaders_(sheet) {
 
   sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
   sheet.setFrozenRows(1);
+  applyTextColumnFormats_(sheet, headers);
+}
+
+function appendRegistrationRow_(sheet, rowValues) {
+  const nextRow = Math.max(sheet.getLastRow() + 1, 2);
+  const targetRange = sheet.getRange(nextRow, 1, 1, rowValues.length);
+  const headers = sheet.getRange(1, 1, 1, rowValues.length).getValues()[0];
+
+  formatTextCells_(sheet, nextRow, headers);
+  targetRange.setValues([rowValues]);
+}
+
+function applyTextColumnFormats_(sheet, headers) {
+  const rowCount = Math.max(sheet.getMaxRows() - 1, 1);
+  TEXT_ONLY_HEADERS.forEach(function(header) {
+    const column = headers.indexOf(header) + 1;
+    if (column > 0) {
+      sheet.getRange(2, column, rowCount, 1).setNumberFormat('@');
+    }
+  });
+}
+
+function formatTextCells_(sheet, row, headers) {
+  TEXT_ONLY_HEADERS.forEach(function(header) {
+    const column = headers.indexOf(header) + 1;
+    if (column > 0) {
+      sheet.getRange(row, column).setNumberFormat('@');
+    }
+  });
 }
 
 function validateRegistration_(data) {

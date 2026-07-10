@@ -2,6 +2,24 @@ const navToggle = document.querySelector(".nav-toggle");
 const mainNav = document.querySelector("#mainNav");
 const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby16BNWFNLwIDFzyuSBuC1rNnD4xtEljustj4Rv6j4sUqvqZfxORj4oc_J0GApGJZKEjw/exec";
 
+const homeHero = document.querySelector("#home");
+const forceHomeEntryTop = () => {
+  if (!homeHero) return;
+  if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
+  }
+  if (window.location.hash) {
+    history.replaceState(null, document.title, `${window.location.pathname}${window.location.search}`);
+  }
+  requestAnimationFrame(() => {
+    window.scrollTo(0, 0);
+    requestAnimationFrame(() => window.scrollTo(0, 0));
+  });
+};
+
+forceHomeEntryTop();
+window.addEventListener("pageshow", forceHomeEntryTop);
+
 document.querySelectorAll("[data-open-new-page]").forEach((link) => {
   link.addEventListener("click", (event) => {
     event.preventDefault();
