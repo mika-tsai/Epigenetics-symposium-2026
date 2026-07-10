@@ -6822,3 +6822,176 @@ button {
     line-height: 1.42;
   }
 }
+
+/* Wider desktop heading notes: use the available space instead of wrapping early. */
+@media (min-width: 981px) {
+  .section-heading,
+  .program-section .section-heading {
+    max-width: min(1380px, 100%);
+  }
+
+  .section-heading > p:last-child,
+  .program-section .section-heading > p:last-child {
+    max-width: min(1280px, 100%);
+  }
+}
+
+/* Registration rules: align bullets and avoid orphaned final punctuation. */
+.registration-rule {
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: clamp(14px, 1.2vw, 22px);
+}
+
+.registration-rule ul {
+  gap: clamp(14px, 1.1vw, 18px);
+}
+
+.registration-rule li {
+  position: relative;
+  display: block;
+  padding-left: 28px;
+  text-wrap: pretty;
+}
+
+.registration-rule li::before {
+  position: absolute;
+  top: 0.74em;
+  left: 0;
+  margin-top: 0;
+}
+
+@media (min-width: 981px) {
+  .registration-rules {
+    grid-template-columns: minmax(0, 1.18fr) minmax(0, 1.08fr) minmax(0, 1.08fr);
+  }
+
+  .registration-rule,
+  .registration-rule:nth-child(2) {
+    padding-right: clamp(46px, 3.8vw, 72px);
+  }
+}
+
+/* Mobile-only repair: keep the three quick actions as equal buttons and tidy speaker cards. */
+@media (max-width: 720px) {
+  body {
+    padding-bottom: calc(104px + env(safe-area-inset-bottom));
+  }
+
+  .floating-actions,
+  .speakers-page .floating-actions {
+    top: auto;
+    right: max(10px, env(safe-area-inset-right));
+    bottom: calc(10px + env(safe-area-inset-bottom));
+    left: max(10px, env(safe-area-inset-left));
+    display: grid;
+    width: auto;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    transform: none;
+  }
+
+  .floating-action,
+  .speakers-page .floating-action {
+    width: auto;
+    min-width: 0;
+    min-height: 78px;
+    padding: 10px 6px;
+    border-radius: 20px;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .floating-action span,
+  .speakers-page .floating-action span {
+    max-width: 100%;
+    font-size: clamp(1.08rem, 4.5vw, 1.42rem);
+    line-height: 1.08;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+
+  .floating-action small,
+  .speakers-page .floating-action small {
+    max-width: 100%;
+    margin-top: 6px;
+    font-size: clamp(0.58rem, 2.35vw, 0.72rem);
+    line-height: 1.12;
+    letter-spacing: 0.035em;
+    white-space: nowrap;
+  }
+
+  .floating-action.logo-action,
+  .speakers-page .floating-action.logo-action {
+    min-height: 78px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  .floating-action.logo-action img,
+  .speakers-page .floating-action.logo-action img {
+    width: 34px;
+    height: 34px;
+    margin-bottom: 3px;
+  }
+
+  .back-to-top {
+    bottom: calc(104px + env(safe-area-inset-bottom));
+  }
+
+  .speakers-page .keynote-speaker-card {
+    padding: 14px;
+  }
+
+  .speakers-page .keynote-speaker-visual {
+    padding: 0;
+  }
+
+  .speakers-page .keynote-portrait {
+    display: block;
+    margin-bottom: 22px;
+    border-radius: 22px;
+  }
+
+  .speakers-page .keynote-speaker-card .speaker-card-content {
+    padding: 0 14px 22px;
+    gap: 14px;
+  }
+
+  .speakers-page .keynote-speaker-card .speaker-card-content h3,
+  .speakers-page .keynote-speaker-card .speaker-card-content p,
+  .speakers-page .keynote-speaker-card .speaker-card-content > span:last-child {
+    margin-top: 0;
+  }
+
+  .speakers-page .speaker-group:not(.speaker-group-featured) .speaker-directory-list,
+  .speakers-page .speaker-group-wide > .speaker-directory-list,
+  .speakers-page .speaker-group-wide .university-entry .speaker-directory-list {
+    background-image: none;
+  }
+}
+
+@media (max-width: 380px) {
+  .floating-actions,
+  .speakers-page .floating-actions {
+    gap: 6px;
+  }
+
+  .floating-action,
+  .speakers-page .floating-action {
+    min-height: 72px;
+    border-radius: 18px;
+  }
+
+  .floating-action span,
+  .speakers-page .floating-action span {
+    font-size: clamp(1rem, 4.2vw, 1.2rem);
+  }
+
+  .floating-action small,
+  .speakers-page .floating-action small {
+    font-size: clamp(0.52rem, 2.15vw, 0.64rem);
+    letter-spacing: 0.02em;
+  }
+}
