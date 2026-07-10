@@ -6945,16 +6945,22 @@ button {
   }
 
   .speakers-page .keynote-speaker-visual {
+    display: block;
+    min-height: 0;
     padding: 0;
   }
 
   .speakers-page .keynote-portrait {
     display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 0.92;
     margin-bottom: 22px;
     border-radius: 22px;
   }
 
   .speakers-page .keynote-speaker-card .speaker-card-content {
+    clear: both;
     padding: 0 14px 22px;
     gap: 14px;
   }
