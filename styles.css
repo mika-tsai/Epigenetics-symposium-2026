@@ -6068,3 +6068,95 @@ button {
     font-size: 1.24rem;
   }
 }
+
+/* Final registration polish: readable, but no forced wrapping on wide screens. */
+.register-band {
+  padding-top: clamp(76px, 5.8vw, 112px);
+  padding-bottom: clamp(76px, 5.8vw, 112px);
+}
+
+.register-intro {
+  max-width: 1120px;
+  margin-bottom: clamp(34px, 3.6vw, 52px);
+}
+
+.register-band h2 {
+  max-width: 10em;
+  font-size: clamp(3.4rem, 5.1vw, 6rem);
+  line-height: 1.04;
+  letter-spacing: -0.045em;
+}
+
+.register-intro > div > p:not(.eyebrow) {
+  max-width: 980px;
+  font-size: clamp(1.12rem, 1.03vw, 1.28rem);
+  line-height: 1.72;
+}
+
+.registration-rules {
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 1.04fr) minmax(0, 1.04fr);
+}
+
+.registration-rule,
+.registration-rule:nth-child(2) {
+  padding: clamp(34px, 2.6vw, 48px) clamp(36px, 3.1vw, 64px) clamp(38px, 3vw, 54px);
+}
+
+.registration-rule strong {
+  margin-bottom: 22px;
+  font-size: clamp(1.55rem, 1.45vw, 1.9rem);
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+}
+
+.registration-rule .rule-lead,
+.registration-rule:nth-child(2) .rule-lead,
+.registration-rule:nth-child(3) .rule-lead {
+  max-width: none;
+  margin-bottom: 24px;
+  font-size: clamp(1.24rem, 1.16vw, 1.48rem);
+  line-height: 1.46;
+}
+
+.registration-rule ul {
+  gap: 16px;
+  font-size: clamp(1.06rem, 0.98vw, 1.2rem);
+  line-height: 1.72;
+}
+
+.registration-rule a {
+  color: var(--ink);
+  font-weight: 900;
+  text-decoration-color: rgba(88, 191, 214, 0.78);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+}
+
+@media (max-width: 1280px) {
+  .registration-rules {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .register-band {
+    padding: 68px 18px;
+  }
+
+  .register-band h2 {
+    font-size: clamp(3rem, 12vw, 4rem);
+  }
+
+  .registration-rule,
+  .registration-rule:nth-child(2) {
+    padding: 28px 24px 32px;
+  }
+
+  .registration-rule strong {
+    font-size: 1.45rem;
+  }
+
+  .registration-rule .rule-lead {
+    font-size: 1.22rem;
+  }
+}

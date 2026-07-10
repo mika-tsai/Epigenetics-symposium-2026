@@ -20,6 +20,7 @@ function doPost(e) {
     const membershipAmount = calculateMembershipTotal_(data.membershipFee);
     const totalAmount = registrationAmount + membershipAmount;
     const position = data.position === 'Other' ? data.positionOther : data.position;
+    const taxId = taxId_(data);
     const registrationId = createRegistrationId_();
     const lock = LockService.getScriptLock();
     lock.waitLock(10000);
@@ -44,7 +45,7 @@ function doPost(e) {
         safeCell_(data.dietaryRestrictions),
         safeCell_(data.bankLastFive),
         safeCell_(data.receiptTitle),
-        safeCell_(data.taxId),
+        safeCell_(taxId),
         safeCell_(data.consent),
         '待確認',
         registrationId
@@ -153,7 +154,8 @@ function validateRegistration_(data) {
   if (DIET_OPTIONS.indexOf(data.diet) === -1) throw new Error('請選擇飲食需求。');
   if (!/^\d{5}$/.test(text_(data.bankLastFive))) throw new Error('匯款帳號後五碼須為 5 位數字。');
   if (!text_(data.receiptTitle)) throw new Error('請填寫收據抬頭。');
-  if (data.taxId && !/^\d{8}$/.test(text_(data.taxId))) throw new Error('統一編號須為 8 位數字，無統編可留白。');
+  const taxId = taxId_(data);
+  if (taxId && !/^\d{8}$/.test(taxId)) throw new Error('統一編號須為 8 位數字，無統編可留白。');
   if (data.consent !== '同意') throw new Error('請確認個人資料使用說明。');
 }
 
@@ -178,6 +180,10 @@ function calculateRegistrationTotal_(plan, roommateStatus) {
 
 function text_(value) {
   return String(value || '').trim();
+}
+
+function taxId_(data) {
+  return text_(data.taxId || data.receiptTaxId || data['統一編號']);
 }
 
 function safeCell_(value) {
