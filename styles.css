@@ -7001,3 +7001,46 @@ button {
     letter-spacing: 0.02em;
   }
 }
+
+/* Speakers page mobile spacing: keep hero, photos, and text from colliding. */
+@media (max-width: 720px) {
+  .speakers-page .speakers-hero {
+    margin-bottom: clamp(34px, 9vw, 54px);
+  }
+
+  .speakers-page .keynote-section {
+    padding-top: 0;
+  }
+
+  .speakers-page .keynote-speaker-card {
+    display: flex;
+    padding: 14px;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .speakers-page .keynote-speaker-visual {
+    display: block;
+    width: 100%;
+    min-height: 0;
+    padding: 0 0 30px;
+    flex: 0 0 auto;
+  }
+
+  .speakers-page .keynote-portrait {
+    display: block;
+    width: 100%;
+    height: clamp(350px, 92vw, 460px);
+    margin: 0;
+    border-radius: 22px;
+  }
+
+  .speakers-page .keynote-speaker-card .speaker-card-content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    padding: 0 14px 24px;
+    margin: 0;
+    flex: 0 0 auto;
+  }
+}
