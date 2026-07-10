@@ -64,6 +64,10 @@ function doPost(e) {
   }
 }
 
+function doGet() {
+  return response_(true, 'TES 2026 registration endpoint is ready.');
+}
+
 function getRegistrationSheet_() {
   const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
   let sheet = spreadsheet.getSheetByName(SHEET_NAME);
@@ -102,7 +106,9 @@ function ensureHeaders_(sheet) {
     '報名編號'
   ];
 
-  sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
+  sheet.getRange(1, 1, 1, headers.length)
+    .clearDataValidations()
+    .setValues([headers]);
   sheet.setFrozenRows(1);
   applyTextColumnFormats_(sheet, headers);
 }

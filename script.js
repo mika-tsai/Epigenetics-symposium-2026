@@ -33,37 +33,48 @@ navToggle?.addEventListener("click", () => {
   navToggle.setAttribute("aria-label", isOpen ? "關閉導覽選單" : "開啟導覽選單");
 });
 
+const localNavLinks = [...(mainNav?.querySelectorAll('a[href^="#"]') || [])];
+const observedSections = localNavLinks
+  .map((link) => document.querySelector(link.getAttribute("href")))
+  .filter(Boolean);
+let navHighlightLockedUntil = 0;
+
+const setActiveNavLink = (activeId) => {
+  localNavLinks.forEach((link) => {
+    const isActive = link.getAttribute("href") === activeId;
+    link.classList.toggle("current-section", isActive);
+    if (isActive) {
+      link.setAttribute("aria-current", "location");
+    } else {
+      link.removeAttribute("aria-current");
+    }
+  });
+};
+
 mainNav?.querySelectorAll("a").forEach((link) => {
   link.addEventListener("click", () => {
+    const href = link.getAttribute("href") || "";
+    if (href.startsWith("#")) {
+      setActiveNavLink(href);
+      navHighlightLockedUntil = Date.now() + 2400;
+    }
     mainNav.classList.remove("open");
     navToggle?.setAttribute("aria-expanded", "false");
     navToggle?.setAttribute("aria-label", "開啟導覽選單");
   });
 });
 
-const localNavLinks = [...(mainNav?.querySelectorAll('a[href^="#"]') || [])];
-const observedSections = localNavLinks
-  .map((link) => document.querySelector(link.getAttribute("href")))
-  .filter(Boolean);
-
 if ("IntersectionObserver" in window && observedSections.length) {
   const sectionObserver = new IntersectionObserver((entries) => {
+    if (Date.now() < navHighlightLockedUntil) return;
+
     const visibleSections = entries
       .filter((entry) => entry.isIntersecting)
       .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
 
     if (!visibleSections.length) return;
     const activeId = `#${visibleSections[0].target.id}`;
-
-    localNavLinks.forEach((link) => {
-      const isActive = link.getAttribute("href") === activeId;
-      link.classList.toggle("current-section", isActive);
-      if (isActive) {
-        link.setAttribute("aria-current", "location");
-      } else {
-        link.removeAttribute("aria-current");
-      }
-    });
+    setActiveNavLink(activeId);
   }, {
     rootMargin: "-22% 0px -58% 0px",
     threshold: [0, 0.1, 0.35],

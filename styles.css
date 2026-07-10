@@ -2114,9 +2114,10 @@ h1,
 }
 
 .consent-field {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
+  display: grid;
+  align-items: start;
+  grid-template-columns: 24px minmax(0, 1fr);
+  gap: 14px;
   margin: 28px 0;
   color: var(--muted);
   font-size: 0.82rem;
@@ -2124,7 +2125,14 @@ h1,
 }
 
 .consent-field input {
-  margin-top: 5px;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  transform: translateY(0.2em);
+}
+
+.consent-field span {
+  line-height: 1.6;
 }
 
 .form-submit-row {
@@ -6207,35 +6215,54 @@ button {
 }
 
 .hero-image-composite h1 {
-  max-width: 8.4em;
+  max-width: 10.6em;
   margin: 0;
   color: var(--ink);
-  font-size: clamp(4.3rem, 5.8vw, 7.8rem);
+  font-size: clamp(4rem, 5.2vw, 7.1rem);
   font-weight: 900;
   letter-spacing: -0.05em;
-  line-height: 1.03;
+  line-height: 1.02;
+}
+
+.hero-image-composite h1 span,
+.hero-image-composite .hero-subtitle span {
+  display: block;
+}
+
+.hero-image-composite h1 span:first-child {
+  white-space: nowrap;
+}
+
+.hero-image-composite h1 span:last-child {
+  margin-top: 0.04em;
+  white-space: nowrap;
 }
 
 .hero-image-composite .hero-meeting-name {
-  max-width: 13em;
+  max-width: 18em;
   margin: clamp(18px, 2vw, 30px) 0 0;
   color: var(--ink);
-  font-size: clamp(2rem, 2.45vw, 3.35rem);
+  font-size: clamp(1.85rem, 2.18vw, 3rem);
   font-weight: 900;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
   line-height: 1.16;
+  white-space: nowrap;
 }
 
 .hero-image-composite .hero-subtitle {
-  max-width: 33em;
+  max-width: 36em;
   margin: clamp(22px, 2.4vw, 38px) 0 0;
   padding-top: clamp(18px, 2vw, 28px);
   border-top: 4px solid rgba(88, 191, 214, 0.82);
   color: #42536b;
-  font-size: clamp(1.16rem, 1.24vw, 1.58rem);
+  font-size: clamp(1.1rem, 1.16vw, 1.46rem);
   font-weight: 900;
   letter-spacing: 0.04em;
   line-height: 1.42;
+}
+
+.hero-image-composite .hero-subtitle span + span {
+  margin-top: 0.16em;
 }
 
 .hero-info-row {
@@ -6255,7 +6282,7 @@ button {
   backdrop-filter: blur(14px);
 }
 
-.hero-info-row span {
+.hero-info-row > div > span {
   display: block;
   margin-bottom: 14px;
   color: #2d9fbd;
@@ -6267,10 +6294,10 @@ button {
 .hero-info-row strong {
   display: block;
   color: var(--ink);
-  font-size: clamp(1.42rem, 1.48vw, 1.95rem);
+  font-size: clamp(1.36rem, 1.34vw, 1.78rem);
   font-weight: 900;
-  letter-spacing: -0.025em;
-  line-height: 1.35;
+  letter-spacing: -0.018em;
+  line-height: 1.32;
 }
 
 .hero-info-row small {
@@ -6314,13 +6341,14 @@ button {
   }
 
   .hero-image-composite h1 {
-    max-width: 6.2em;
-    font-size: clamp(3.2rem, 11vw, 4.8rem);
+    max-width: 8.2em;
+    font-size: clamp(3.1rem, 10.2vw, 4.5rem);
     line-height: 1.08;
   }
 
   .hero-image-composite .hero-meeting-name {
     font-size: clamp(1.6rem, 6vw, 2.25rem);
+    white-space: normal;
   }
 
   .hero-image-composite .hero-subtitle {
@@ -6347,7 +6375,7 @@ button {
   }
 
   .hero-image-composite h1 {
-    font-size: clamp(2.75rem, 13vw, 3.75rem);
+    font-size: clamp(2.55rem, 12vw, 3.55rem);
   }
 
   .hero-info-row div {
@@ -6357,5 +6385,430 @@ button {
 
   .hero-info-row strong {
     font-size: 1.28rem;
+  }
+}
+
+/* Floating actions: keep every label inside the button on narrow screens. */
+.floating-action {
+  align-items: center;
+  min-width: 0;
+  overflow: hidden;
+  text-align: center;
+}
+
+.floating-action span,
+.floating-action small {
+  max-width: 100%;
+  overflow-wrap: normal;
+  word-break: keep-all;
+  hyphens: none;
+}
+
+.floating-action small {
+  letter-spacing: 0.08em;
+}
+
+@media (max-width: 980px) {
+  .floating-action {
+    width: 154px;
+    min-height: 74px;
+    padding: 12px 14px;
+  }
+
+  .floating-action span {
+    font-size: clamp(1.18rem, 4.4vw, 1.52rem);
+    line-height: 1.12;
+  }
+
+  .floating-action small {
+    display: block;
+    font-size: clamp(0.72rem, 2.65vw, 0.88rem);
+    line-height: 1.22;
+    letter-spacing: 0.08em;
+  }
+}
+
+@media (max-width: 520px) {
+  .floating-actions {
+    right: max(14px, env(safe-area-inset-right));
+    gap: 12px;
+  }
+
+  .floating-action {
+    width: min(310px, calc(100vw - 46px));
+    min-height: 86px;
+    padding: 14px 28px;
+    border-radius: 24px;
+  }
+
+  .floating-action span {
+    font-size: clamp(1.28rem, 5.8vw, 1.72rem);
+  }
+
+  .floating-action small {
+    display: block;
+    margin-top: 7px;
+    font-size: clamp(0.64rem, 2.55vw, 0.78rem);
+    line-height: 1.18;
+    letter-spacing: 0.02em;
+  }
+
+  .floating-action.primary small {
+    font-size: clamp(0.6rem, 2.35vw, 0.72rem);
+    letter-spacing: 0.01em;
+  }
+
+  .floating-action.logo-action {
+    min-height: 118px;
+  }
+}
+
+/* Unified section headings: 02-07 share one rhythm, scale, and spacing system. */
+.section-heading,
+.program-section .section-heading {
+  position: relative;
+  max-width: min(920px, 100%);
+  margin-bottom: clamp(42px, 4vw, 64px);
+  padding-top: clamp(54px, 5vw, 76px);
+}
+
+.section-heading::before,
+.program-section .section-heading::before {
+  top: 0;
+  left: -0.02em;
+  z-index: -1;
+  color: rgba(133, 158, 184, 0.42);
+  font-size: clamp(7.4rem, 11.8vw, 11rem);
+  font-weight: 900;
+  letter-spacing: -0.085em;
+  line-height: 0.72;
+}
+
+.section-heading .eyebrow,
+.program-section .eyebrow {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 clamp(10px, 1vw, 14px);
+  color: #536176;
+  font-size: clamp(1.05rem, 1.15vw, 1.42rem);
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+.section-heading h2,
+.program-section .section-heading h2 {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(4.15rem, 6.4vw, 7rem);
+  font-weight: 900;
+  letter-spacing: -0.045em;
+  line-height: 1.02;
+}
+
+.section-heading > p:last-child,
+.program-section .section-heading > p:last-child {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  margin-top: clamp(22px, 2vw, 32px);
+  color: var(--muted);
+  font-size: clamp(1.18rem, 1.12vw, 1.42rem);
+  line-height: 1.7;
+  letter-spacing: 0;
+}
+
+.section-heading::after,
+.program-section .section-heading::after {
+  width: 88px;
+  height: 4px;
+  margin-top: clamp(24px, 2vw, 34px);
+  border-radius: 999px;
+}
+
+.program-status {
+  margin: clamp(24px, 2vw, 34px) 0 0;
+  padding: 0.72rem 1.25rem;
+  border-radius: 999px;
+  font-size: clamp(1.05rem, 1vw, 1.24rem);
+  letter-spacing: 0.12em;
+  line-height: 1.15;
+}
+
+@media (max-width: 720px) {
+  .section-heading,
+  .program-section .section-heading {
+    margin-bottom: 36px;
+    padding-top: 50px;
+  }
+
+  .section-heading::before,
+  .program-section .section-heading::before {
+    font-size: clamp(6.6rem, 28vw, 9rem);
+  }
+
+  .section-heading .eyebrow,
+  .program-section .eyebrow {
+    font-size: clamp(0.98rem, 4vw, 1.18rem);
+    letter-spacing: 0.18em;
+  }
+
+  .section-heading h2,
+  .program-section .section-heading h2 {
+    font-size: clamp(3.15rem, 13vw, 4.55rem);
+    line-height: 1.04;
+  }
+
+  .section-heading > p:last-child,
+  .program-section .section-heading > p:last-child {
+    margin-top: 20px;
+    font-size: 1.08rem;
+  }
+}
+
+/* Mobile speaker cards: make portraits substantial and keep names visible. */
+@media (max-width: 720px) {
+  .keynote-preview-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .keynote-preview-card {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: stretch;
+    gap: 0;
+    min-height: 0;
+    padding: 0;
+  }
+
+  .keynote-preview-card > div {
+    padding: 24px 26px 30px;
+  }
+
+  .keynote-preview-card .speaker-monogram {
+    width: 100%;
+    min-width: 0;
+    height: auto;
+    aspect-ratio: 1 / 0.9;
+    border-radius: 26px 26px 0 0;
+  }
+
+  .keynote-preview-card p {
+    min-height: 0;
+    margin-bottom: 12px;
+    font-size: 1.02rem;
+    line-height: 1.35;
+  }
+
+  .keynote-preview-card h3 {
+    margin-bottom: 12px;
+    color: var(--ink);
+    font-size: clamp(2rem, 8vw, 2.65rem);
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    overflow-wrap: normal;
+  }
+
+  .keynote-preview-card h3 small {
+    margin-top: 6px;
+    font-size: 0.58em;
+  }
+
+  .keynote-preview-card div > span {
+    color: var(--muted);
+    font-size: 1.08rem;
+    font-weight: 700;
+    line-height: 1.45;
+  }
+
+  .keynote-speaker-grid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .keynote-speaker-card {
+    display: grid;
+    grid-template-columns: 1fr;
+    min-height: 0;
+    overflow: hidden;
+    border-radius: 30px;
+  }
+
+  .keynote-speaker-visual {
+    min-height: 0;
+    padding: 20px 20px 0;
+  }
+
+  .keynote-portrait {
+    width: 100%;
+    max-width: none;
+    height: auto;
+    aspect-ratio: 1 / 0.9;
+    border-radius: 24px;
+  }
+
+  .keynote-speaker-card .speaker-card-content {
+    display: flex;
+    padding: 22px 26px 34px;
+    gap: 12px;
+  }
+
+  .keynote-speaker-card .speaker-type {
+    order: 1;
+    margin: 0;
+    font-size: 0.98rem;
+  }
+
+  .keynote-speaker-card .speaker-card-content h3 {
+    display: block;
+    order: 2;
+    font-size: clamp(2.25rem, 8.8vw, 3rem);
+    line-height: 1.1;
+    overflow-wrap: normal;
+  }
+
+  .keynote-speaker-card .speaker-card-content h3 small {
+    display: block;
+    margin-top: 6px;
+    font-size: 0.56em;
+    line-height: 1.2;
+  }
+
+  .keynote-speaker-card .speaker-card-content p {
+    order: 3;
+    margin-top: 4px;
+    font-size: 1.18rem;
+    line-height: 1.4;
+  }
+
+  .keynote-speaker-card .speaker-card-content > span:last-child {
+    order: 4;
+    margin-top: 4px;
+    font-size: 1.08rem;
+  }
+}
+
+@media (max-width: 430px) {
+  .keynote-preview-card .speaker-monogram,
+  .keynote-portrait {
+    aspect-ratio: 1 / 1.04;
+  }
+
+  .keynote-preview-card > div,
+  .keynote-speaker-card .speaker-card-content {
+    padding-right: 22px;
+    padding-left: 22px;
+  }
+}
+
+/* Speakers page balance: compact the hero facts and give keynote cards breathing room. */
+@media (min-width: 721px) {
+  .speakers-page .speakers-hero {
+    grid-template-columns: minmax(0, 1.28fr) minmax(300px, 0.54fr);
+    min-height: clamp(300px, 28vw, 390px);
+  }
+
+  .speakers-page .speakers-hero-title {
+    padding: clamp(42px, 4vw, 68px);
+  }
+
+  .speakers-page .speakers-hero-facts div {
+    grid-template-columns: minmax(86px, 0.42fr) minmax(0, 1fr);
+    gap: clamp(22px, 2.2vw, 38px);
+    min-height: 0;
+    padding: clamp(24px, 2.6vw, 38px) clamp(28px, 3vw, 48px);
+  }
+
+  .speakers-page .speakers-hero-facts dt {
+    font-size: clamp(0.82rem, 0.72vw, 1rem);
+    letter-spacing: 0.18em;
+  }
+
+  .speakers-page .speakers-hero-facts dd {
+    font-size: clamp(1.15rem, 1.05vw, 1.45rem);
+    line-height: 1.35;
+  }
+
+  .speakers-page .speakers-hero-facts dd strong {
+    display: block;
+    margin-bottom: 10px;
+    font-size: clamp(2.35rem, 2.7vw, 3.25rem);
+    line-height: 0.95;
+  }
+
+  .speakers-page .keynote-speaker-card {
+    min-height: clamp(410px, 32vw, 520px);
+  }
+
+  .speakers-page .keynote-speaker-card .speaker-card-content {
+    justify-content: center;
+    padding-top: clamp(64px, 5vw, 92px);
+    padding-bottom: clamp(58px, 4.5vw, 84px);
+  }
+
+  .speakers-page .keynote-speaker-card .speaker-type {
+    margin-bottom: 8px;
+  }
+}
+
+@media (max-width: 720px) {
+  .speakers-page .speakers-hero-facts div {
+    gap: 18px;
+    padding-top: 22px;
+    padding-bottom: 22px;
+  }
+
+  .speakers-page .speakers-hero-facts dd strong {
+    display: inline-block;
+    margin-right: 8px;
+  }
+}
+
+/* Keep homepage keynote preview type generous; solve fit with spacing, not smaller text. */
+@media (min-width: 721px) {
+  .keynote-preview-grid {
+    gap: clamp(22px, 2.4vw, 36px);
+  }
+
+  .keynote-preview-card {
+    min-height: clamp(500px, 36vw, 620px);
+  }
+
+  .keynote-preview-card .speaker-monogram {
+    height: clamp(260px, 19vw, 340px);
+  }
+
+  .keynote-preview-card > div {
+    padding: clamp(34px, 3vw, 52px);
+  }
+
+  .keynote-preview-card p {
+    min-height: 0;
+    margin-bottom: clamp(38px, 4.2vw, 72px);
+    font-size: clamp(1.05rem, 1vw, 1.28rem);
+    line-height: 1.35;
+  }
+
+  .keynote-preview-card h3 {
+    margin-bottom: clamp(18px, 1.6vw, 28px);
+    font-size: clamp(2.1rem, 2.65vw, 3.35rem);
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+    overflow-wrap: normal;
+  }
+
+  .keynote-preview-card h3 small {
+    margin-top: 8px;
+    font-size: 0.58em;
+  }
+
+  .keynote-preview-card div > span {
+    font-size: clamp(1.16rem, 1.25vw, 1.55rem);
+    font-weight: 700;
+    line-height: 1.42;
   }
 }
