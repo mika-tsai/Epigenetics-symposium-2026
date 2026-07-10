@@ -1248,7 +1248,7 @@ h1,
 }
 
 .bank-details div:last-child {
-  border-bottom: 0;
+  border-bottom: 1px solid rgba(133, 158, 184, 0.28);
 }
 
 .bank-details dt {
@@ -3218,6 +3218,12 @@ h1,
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.speaker-group-wide > .speaker-directory-list {
+  background-image:
+    linear-gradient(to right, transparent calc(33.333% - 0.5px), var(--soft-line) calc(33.333% - 0.5px), var(--soft-line) calc(33.333% + 0.5px), transparent calc(33.333% + 0.5px)),
+    linear-gradient(to right, transparent calc(66.666% - 0.5px), var(--soft-line) calc(66.666% - 0.5px), var(--soft-line) calc(66.666% + 0.5px), transparent calc(66.666% + 0.5px));
+}
+
 .speaker-directory-list > :is(div, a) {
   position: relative;
   display: flex;
@@ -3230,6 +3236,10 @@ h1,
   flex-direction: column;
   justify-content: center;
   text-decoration: none;
+}
+
+.speaker-group-wide > .speaker-directory-list > :is(div, a) {
+  border-bottom: 1px solid var(--soft-line);
 }
 
 .speaker-directory-list > .speaker-entry-enhanced {
