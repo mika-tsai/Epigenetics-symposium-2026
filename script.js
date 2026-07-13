@@ -8,7 +8,11 @@ const forceHomeEntryTop = () => {
   if ("scrollRestoration" in history) {
     history.scrollRestoration = "manual";
   }
-  if (window.location.hash) {
+  const hash = window.location.hash;
+  if (hash && hash !== "#home") {
+    return;
+  }
+  if (hash === "#home") {
     history.replaceState(null, document.title, `${window.location.pathname}${window.location.search}`);
   }
   requestAnimationFrame(() => {

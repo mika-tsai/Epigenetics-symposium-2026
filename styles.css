@@ -230,6 +230,7 @@ p {
 
 .floating-action.logo-action small {
   margin-top: 7px;
+  letter-spacing: 0.08em;
 }
 
 .floating-action:hover {
@@ -766,10 +767,10 @@ h1,
 
 .organization-name small {
   display: block;
-  margin-top: 2px;
+  margin-top: 4px;
   color: var(--muted);
-  font-size: 0.76rem;
-  font-weight: 500;
+  font-size: 0.88em;
+  font-weight: 700;
   line-height: 1.45;
 }
 
@@ -7042,5 +7043,117 @@ button {
     padding: 0 14px 24px;
     margin: 0;
     flex: 0 0 auto;
+  }
+}
+
+/* Neutral card color treatment: no option or speaker is visually prioritized. */
+.fee-card,
+.fee-card.featured {
+  transform: none;
+  border-color: rgba(133, 158, 184, 0.24);
+  background:
+    radial-gradient(circle at 82% 16%, rgba(88, 191, 214, 0.14), transparent 12rem),
+    linear-gradient(135deg, rgba(247, 252, 254, 0.96), rgba(255, 253, 249, 0.9));
+  color: var(--ink);
+  box-shadow: 0 18px 48px rgba(16, 36, 62, 0.05);
+}
+
+.fee-card::before,
+.fee-card.featured::before {
+  color: rgba(133, 158, 184, 0.34);
+}
+
+.fee-card p,
+.fee-card span,
+.fee-card.featured p,
+.fee-card.featured span {
+  color: var(--muted);
+}
+
+.keynote-speaker-card,
+.keynote-speaker-card:nth-child(2) {
+  background:
+    linear-gradient(90deg, rgba(217, 228, 239, 0.34), transparent 42%),
+    rgba(255, 253, 249, 0.9);
+}
+
+.keynote-speaker-visual,
+.keynote-speaker-card:nth-child(2) .keynote-speaker-visual,
+.speakers-page .keynote-speaker-visual,
+.speakers-page .keynote-speaker-card:nth-child(2) .keynote-speaker-visual {
+  background:
+    radial-gradient(circle at 70% 18%, rgba(88, 191, 214, 0.16), transparent 8rem),
+    #eaf3f9;
+}
+
+.keynote-number,
+.keynote-speaker-card:nth-child(2) .keynote-number {
+  color: rgba(16, 36, 62, 0.38);
+}
+
+/* Desktop keynote layout: keep the three keynote speakers equally weighted and side by side. */
+@media (min-width: 961px) {
+  .keynote-speaker-grid,
+  .speakers-page .keynote-speaker-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(18px, 2vw, 28px);
+  }
+
+  .keynote-speaker-card,
+  .speakers-page .keynote-speaker-card {
+    display: flex;
+    min-height: 0;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .keynote-speaker-visual,
+  .speakers-page .keynote-speaker-visual {
+    width: 100%;
+    min-height: 0;
+    padding: clamp(18px, 1.7vw, 28px) clamp(18px, 1.7vw, 28px) 0;
+  }
+
+  .keynote-portrait,
+  .speakers-page .keynote-portrait {
+    width: 100%;
+    max-width: none;
+    height: clamp(300px, 24vw, 430px);
+  }
+
+  .keynote-speaker-card .speaker-card-content,
+  .speakers-page .keynote-speaker-card .speaker-card-content {
+    display: flex;
+    width: 100%;
+    max-width: none;
+    padding: clamp(28px, 2.6vw, 42px);
+    flex: 1 1 auto;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 14px;
+  }
+
+  .keynote-speaker-card .speaker-card-content h3,
+  .speakers-page .keynote-speaker-card .speaker-card-content h3 {
+    max-width: 100%;
+    min-height: 2.18em;
+    font-size: clamp(2.4rem, 3.25vw, 3.55rem);
+    line-height: 1.08;
+  }
+
+  .keynote-speaker-card .speaker-card-content p,
+  .speakers-page .keynote-speaker-card .speaker-card-content p {
+    max-width: 100%;
+    min-height: 2.45em;
+    font-size: clamp(1.18rem, 1.45vw, 1.48rem);
+    line-height: 1.28;
+  }
+
+  .keynote-speaker-card .speaker-card-content > span:last-child,
+  .speakers-page .keynote-speaker-card .speaker-card-content > span:last-child {
+    text-align: left;
+    white-space: normal;
   }
 }
