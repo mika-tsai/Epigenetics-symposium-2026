@@ -7003,6 +7003,31 @@ button {
   }
 }
 
+/* Floating action fit: keep "Online Registration" away from the button edge. */
+.floating-action.primary {
+  width: 168px;
+  padding-inline: 16px;
+}
+
+.floating-action.primary small {
+  font-size: 0.58rem;
+  letter-spacing: 0.055em;
+}
+
+@media (max-width: 720px) {
+  .floating-action.primary,
+  .speakers-page .floating-action.primary {
+    width: auto;
+    padding-inline: 5px;
+  }
+
+  .floating-action.primary small,
+  .speakers-page .floating-action.primary small {
+    font-size: clamp(0.5rem, 2vw, 0.62rem);
+    letter-spacing: 0.01em;
+  }
+}
+
 /* Speakers page mobile spacing: keep hero, photos, and text from colliding. */
 @media (max-width: 720px) {
   .speakers-page .speakers-hero {
