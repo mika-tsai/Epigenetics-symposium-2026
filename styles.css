@@ -7004,6 +7004,12 @@ button {
 }
 
 /* Floating action fit: keep "Online Registration" away from the button edge. */
+.floating-action {
+  width: 168px;
+  min-height: 88px;
+  padding-inline: 16px;
+}
+
 .floating-action.primary {
   width: 168px;
   padding-inline: 16px;
@@ -7012,6 +7018,14 @@ button {
 .floating-action.primary small {
   font-size: 0.58rem;
   letter-spacing: 0.055em;
+}
+
+.floating-action.logo-action {
+  min-height: 88px;
+}
+
+.speakers-page .floating-action {
+  width: auto;
 }
 
 @media (max-width: 720px) {
