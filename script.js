@@ -98,6 +98,20 @@ backToTop?.addEventListener("click", () => {
 });
 updateBackToTop();
 
+const siteFooter = document.querySelector(".site-footer");
+if ("IntersectionObserver" in window && siteFooter) {
+  const footerObserver = new IntersectionObserver((entries) => {
+    document.body.classList.toggle(
+      "footer-in-view",
+      entries.some((entry) => entry.isIntersecting),
+    );
+  }, {
+    threshold: 0.08,
+  });
+
+  footerObserver.observe(siteFooter);
+}
+
 const invitedSpeakerSlider = document.querySelector("#invitedSpeakerSlider");
 document.querySelectorAll("[data-speaker-scroll]").forEach((button) => {
   button.addEventListener("click", () => {
