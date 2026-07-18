@@ -37,15 +37,29 @@ navToggle?.addEventListener("click", () => {
   navToggle.setAttribute("aria-label", isOpen ? "關閉導覽選單" : "開啟導覽選單");
 });
 
-const localNavLinks = [...(mainNav?.querySelectorAll('a[href^="#"]') || [])];
-const observedSections = localNavLinks
-  .map((link) => document.querySelector(link.getAttribute("href")))
+const navLinks = [...(mainNav?.querySelectorAll("a") || [])];
+const navSectionMap = [
+  ["home", "#about"],
+  ["about", "#about"],
+  ["home-speakers", "speakers.html"],
+  ["program", "#program"],
+  ["sponsors", "#sponsors"],
+  ["registration", "#registration"],
+  ["register", "#registration"],
+  ["payment", "#payment"],
+  ["contact", "#contact"],
+];
+const navSections = navSectionMap
+  .map(([id, navHref]) => {
+    const section = document.querySelector(`#${id}`);
+    return section ? { section, navHref } : null;
+  })
   .filter(Boolean);
-let navHighlightLockedUntil = 0;
 
 const setActiveNavLink = (activeId) => {
-  localNavLinks.forEach((link) => {
-    const isActive = link.getAttribute("href") === activeId;
+  navLinks.forEach((link) => {
+    const href = link.getAttribute("href") || "";
+    const isActive = href === activeId || href.endsWith(activeId);
     link.classList.toggle("current-section", isActive);
     if (isActive) {
       link.setAttribute("aria-current", "location");
@@ -60,7 +74,6 @@ mainNav?.querySelectorAll("a").forEach((link) => {
     const href = link.getAttribute("href") || "";
     if (href.startsWith("#")) {
       setActiveNavLink(href);
-      navHighlightLockedUntil = Date.now() + 2400;
     }
     mainNav.classList.remove("open");
     navToggle?.setAttribute("aria-expanded", "false");
@@ -68,24 +81,35 @@ mainNav?.querySelectorAll("a").forEach((link) => {
   });
 });
 
-if ("IntersectionObserver" in window && observedSections.length) {
-  const sectionObserver = new IntersectionObserver((entries) => {
-    if (Date.now() < navHighlightLockedUntil) return;
+const updateActiveNavFromScroll = () => {
+  if (!navSections.length || document.body.classList.contains("speakers-page")) return;
 
-    const visibleSections = entries
-      .filter((entry) => entry.isIntersecting)
-      .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+  const headerHeight = document.querySelector(".site-header")?.offsetHeight || 0;
+  const probeY = window.scrollY + headerHeight + Math.min(160, window.innerHeight * 0.28);
+  let active = navSections[0];
 
-    if (!visibleSections.length) return;
-    const activeId = `#${visibleSections[0].target.id}`;
-    setActiveNavLink(activeId);
-  }, {
-    rootMargin: "-22% 0px -58% 0px",
-    threshold: [0, 0.1, 0.35],
+  navSections.forEach((entry) => {
+    const sectionTop = entry.section.getBoundingClientRect().top + window.scrollY;
+    if (sectionTop <= probeY) {
+      active = entry;
+    }
   });
 
-  observedSections.forEach((section) => sectionObserver.observe(section));
-}
+  setActiveNavLink(active.navHref);
+};
+
+let navScrollFrame = 0;
+const scheduleActiveNavUpdate = () => {
+  if (navScrollFrame) return;
+  navScrollFrame = window.requestAnimationFrame(() => {
+    navScrollFrame = 0;
+    updateActiveNavFromScroll();
+  });
+};
+
+window.addEventListener("scroll", scheduleActiveNavUpdate, { passive: true });
+window.addEventListener("resize", scheduleActiveNavUpdate);
+updateActiveNavFromScroll();
 
 const backToTop = document.querySelector(".back-to-top");
 const updateBackToTop = () => {
