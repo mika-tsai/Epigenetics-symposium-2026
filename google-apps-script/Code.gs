@@ -27,6 +27,7 @@ function doPost(e) {
 
     try {
       const sheet = getRegistrationSheet_();
+      preventDuplicateRegistration_(sheet, data.email);
       const rowValues = [
         new Date(),
         safeCell_(data.submittedAt),
@@ -122,6 +123,27 @@ function appendRegistrationRow_(sheet, rowValues) {
   targetRange.setValues([rowValues]);
 }
 
+function preventDuplicateRegistration_(sheet, email) {
+  const normalizedEmail = normalizeEmail_(email);
+  const lastRow = sheet.getLastRow();
+  if (lastRow < 2) return;
+
+  const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+  const emailColumn = headers.indexOf('聯絡信箱') + 1;
+  if (emailColumn < 1) throw new Error('系統設定異常：找不到聯絡信箱欄位。');
+
+  const submittedEmails = sheet
+    .getRange(2, emailColumn, lastRow - 1, 1)
+    .getValues()
+    .map(function(row) {
+      return normalizeEmail_(row[0]);
+    });
+
+  if (submittedEmails.indexOf(normalizedEmail) !== -1) {
+    throw new Error('此聯絡信箱已完成報名。每位參加者限報名一次；如需更正資料，請聯絡秘書處協助修改。');
+  }
+}
+
 function applyTextColumnFormats_(sheet, headers) {
   const rowCount = Math.max(sheet.getMaxRows() - 1, 1);
   TEXT_ONLY_HEADERS.forEach(function(header) {
@@ -186,6 +208,10 @@ function calculateRegistrationTotal_(plan, roommateStatus) {
 
 function text_(value) {
   return String(value || '').trim();
+}
+
+function normalizeEmail_(value) {
+  return text_(value).toLowerCase();
 }
 
 function taxId_(data) {

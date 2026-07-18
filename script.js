@@ -583,3 +583,130 @@ window.addEventListener("message", (event) => {
     submitButton.textContent = "送出報名資料";
   }
 });
+
+// KEYNOTE_LINK_ALIGN_START
+(function () {
+  const keynoteCards = [
+    {
+      name: "Dr. Hsiu-Chuan Lin",
+      affiliation: "Centre for Genomic Regulation",
+      location: "Barcelona, Spain",
+      url: "https://www.crg.eu/ca/programmes-groups/lin-lab"
+    },
+    {
+      name: "Dr. Yue Wan",
+      affiliation: "Genome Institute of Singapore, A*STAR",
+      location: "Singapore",
+      url: "https://research.a-star.edu.sg/researcher/yue-wan/"
+    },
+    {
+      name: "Dr. Xiao Wang",
+      affiliation: "Massachusetts Institute of Technology",
+      location: "Cambridge, USA",
+      url: "https://www.wangxiaolab.org/xiao-wang"
+    }
+  ];
+
+  function normalizeText(value) {
+    return (value || "").replace(/\s+/g, " ").trim();
+  }
+
+  function textMatches(el, value) {
+    return normalizeText(el.textContent).includes(value);
+  }
+
+  function walkTextElements(root, value) {
+    return Array.from(root.querySelectorAll("body *"))
+      .filter((el) => el.children.length === 0 && textMatches(el, value));
+  }
+
+  function findSmallestElementByText(value) {
+    const exact = walkTextElements(document, value).find((el) => normalizeText(el.textContent) === value);
+    return exact || walkTextElements(document, value)[0] || null;
+  }
+
+  function findKeynoteCard(name) {
+    const nameEl = findSmallestElementByText(name);
+    if (!nameEl) return null;
+    return nameEl.closest(".keynote-speaker-card, .keynote-card, .speaker-feature-card, .speaker-card, .speaker-profile-card, .speaker-profile, .speaker-tile, article, .card") || nameEl.parentElement;
+  }
+
+  function findElementInside(card, value) {
+    return Array.from(card.querySelectorAll("*"))
+      .filter((el) => el.children.length === 0 && textMatches(el, value))
+      .sort((a, b) => normalizeText(a.textContent).length - normalizeText(b.textContent).length)[0] || null;
+  }
+
+  function tagCardParts(card, item) {
+    const role = findElementInside(card, "Keynote Speaker");
+    const name = findElementInside(card, item.name);
+    const affiliation = findElementInside(card, item.affiliation);
+    const location = findElementInside(card, item.location);
+    const photo = card.querySelector("img");
+
+    if (role) role.classList.add("keynote-card-role");
+    if (name) name.classList.add("keynote-card-name");
+    if (affiliation) affiliation.classList.add("keynote-card-affiliation");
+    if (location) location.classList.add("keynote-card-location");
+    if (photo) {
+      photo.classList.add("keynote-card-photo");
+      const media = photo.closest("figure, picture, .speaker-photo, .speaker-image, .speaker-card-media, .portrait, .card-image, .speaker-portrait") || photo.parentElement;
+      if (media && media !== card) media.classList.add("keynote-card-media");
+    }
+  }
+
+  function wireKeynoteCard(card, url) {
+    const existingLink = card.matches("a") ? card : card.querySelector("a[href]");
+    if (existingLink) {
+      existingLink.href = url;
+      existingLink.target = "_blank";
+      existingLink.rel = "noopener noreferrer";
+    }
+
+    card.classList.add("keynote-link-card", "keynote-align-card");
+    card.setAttribute("role", "link");
+    card.setAttribute("tabindex", "0");
+    card.setAttribute("aria-label", "Open keynote speaker lab website");
+    card.dataset.keynoteUrl = url;
+
+    if (card.dataset.keynoteLinkBound === "true") return;
+    card.dataset.keynoteLinkBound = "true";
+
+    card.addEventListener("click", (event) => {
+      if (event.target.closest("a, button, input, select, textarea")) return;
+      window.open(card.dataset.keynoteUrl, "_blank", "noopener");
+    });
+
+    card.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      window.open(card.dataset.keynoteUrl, "_blank", "noopener");
+    });
+  }
+
+  function reorderKeynotes(entries) {
+    const parent = entries[0]?.card?.parentElement;
+    if (!parent || entries.length !== keynoteCards.length) return;
+    if (!entries.every((entry) => entry.card.parentElement === parent)) return;
+    entries.forEach((entry) => parent.appendChild(entry.card));
+  }
+
+  function runKeynoteCardEnhancements() {
+    const entries = keynoteCards
+      .map((item) => ({ item, card: findKeynoteCard(item.name) }))
+      .filter((entry) => entry.card);
+
+    entries.forEach(({ item, card }) => {
+      tagCardParts(card, item);
+      wireKeynoteCard(card, item.url);
+    });
+    reorderKeynotes(entries);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", runKeynoteCardEnhancements);
+  } else {
+    runKeynoteCardEnhancements();
+  }
+})();
+// KEYNOTE_LINK_ALIGN_END
