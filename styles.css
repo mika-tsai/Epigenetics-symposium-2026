@@ -1429,8 +1429,8 @@ h1,
 }
 
 .sponsor-card-apg img {
-  width: min(78%, 520px);
-  height: 190px;
+  width: min(94%, 660px);
+  height: 205px;
   margin: 0 auto;
   object-fit: contain;
 }
@@ -4328,8 +4328,8 @@ body.footer-in-view .floating-actions {
   }
 
   .sponsor-card-apg img {
-    width: min(86%, 360px);
-    height: 140px;
+    width: min(96%, 430px);
+    height: 150px;
   }
 
   .sponsor-logo-card {

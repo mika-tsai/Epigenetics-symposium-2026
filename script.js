@@ -624,10 +624,10 @@ window.addEventListener("message", (event) => {
       url: "https://research.a-star.edu.sg/researcher/yue-wan/"
     },
     {
-      name: "Dr. Xiao Wang",
-      affiliation: "Massachusetts Institute of Technology",
-      location: "Cambridge, USA",
-      url: "https://www.wangxiaolab.org/xiao-wang"
+      name: "Dr. Sheng-Hong Chen",
+      affiliation: "Institute of Molecular Biology, Academia Sinica",
+      location: "Taipei, Taiwan",
+      url: "https://celldynamicslabchinese.mystrikingly.com/"
     }
   ];
 
@@ -680,6 +680,15 @@ window.addEventListener("message", (event) => {
   }
 
   function wireKeynoteCard(card, url) {
+    if (!url) {
+      card.classList.add("keynote-align-card");
+      card.removeAttribute("role");
+      card.removeAttribute("tabindex");
+      card.removeAttribute("aria-label");
+      delete card.dataset.keynoteUrl;
+      return;
+    }
+
     const existingLink = card.matches("a") ? card : card.querySelector("a[href]");
     if (existingLink) {
       existingLink.href = url;
