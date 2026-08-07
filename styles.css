@@ -7795,3 +7795,69 @@ button {
   }
 }
 /* KEYNOTE_LINK_ALIGN_END */
+
+/* Speakers page final polish: balance bottom quick actions and long keynote names. */
+.speakers-page .keynote-section .speaker-card-content .name-nowrap {
+  display: inline-block !important;
+  white-space: nowrap !important;
+}
+
+.speakers-page .keynote-section .keynote-speaker-card:nth-child(3) .speaker-card-content .keynote-name {
+  font-size: clamp(2.1rem, 2.35vw, 2.75rem) !important;
+  line-height: 1.1 !important;
+}
+
+@media (min-width: 1181px) {
+  .speakers-page {
+    padding-bottom: calc(132px + env(safe-area-inset-bottom)) !important;
+  }
+
+  .speakers-page .floating-actions {
+    right: max(42px, env(safe-area-inset-right)) !important;
+    bottom: calc(16px + env(safe-area-inset-bottom)) !important;
+    left: max(42px, env(safe-area-inset-left)) !important;
+    width: min(1840px, calc(100% - 84px)) !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: clamp(18px, 2vw, 32px) !important;
+    justify-items: center !important;
+  }
+
+  .speakers-page .floating-action,
+  .speakers-page .floating-action.primary,
+  .speakers-page .floating-action.logo-action {
+    width: min(260px, 100%) !important;
+    min-height: 92px !important;
+    padding: 16px 24px !important;
+  }
+}
+
+@media (max-width: 1180px) and (min-width: 721px) {
+  .speakers-page {
+    padding-bottom: calc(120px + env(safe-area-inset-bottom)) !important;
+  }
+
+  .speakers-page .floating-actions {
+    right: max(18px, env(safe-area-inset-right)) !important;
+    bottom: calc(14px + env(safe-area-inset-bottom)) !important;
+    left: max(18px, env(safe-area-inset-left)) !important;
+    display: grid !important;
+    width: auto !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 14px !important;
+    transform: none !important;
+  }
+
+  .speakers-page .floating-action,
+  .speakers-page .floating-action.primary,
+  .speakers-page .floating-action.logo-action {
+    width: auto !important;
+    min-height: 82px !important;
+    padding: 14px 18px !important;
+  }
+}
+
+@media (max-width: 720px) {
+  .speakers-page .keynote-section .keynote-speaker-card:nth-child(3) .speaker-card-content .keynote-name {
+    font-size: clamp(2.15rem, 8.8vw, 3rem) !important;
+  }
+}

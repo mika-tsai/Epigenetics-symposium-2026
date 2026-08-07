@@ -624,7 +624,7 @@ window.addEventListener("message", (event) => {
       url: "https://research.a-star.edu.sg/researcher/yue-wan/"
     },
     {
-      name: "Dr. Sheng-Hong Chen",
+      name: "Dr. Sheng-Hong",
       affiliation: "Institute of Molecular Biology, Academia Sinica",
       location: "Taipei, Taiwan",
       url: "https://celldynamicslabchinese.mystrikingly.com/"
