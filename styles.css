@@ -1905,6 +1905,19 @@ h1,
   text-underline-offset: 4px;
 }
 
+.membership-submit-notice {
+  color: #c91f1f !important;
+  font-weight: 900 !important;
+}
+
+.membership-submit-notice a {
+  color: #c91f1f !important;
+  font-weight: 950 !important;
+  text-decoration-color: rgba(201, 31, 31, 0.55) !important;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
 .form-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
