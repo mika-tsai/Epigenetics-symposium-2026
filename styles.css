@@ -1435,6 +1435,12 @@ h1,
   object-fit: contain;
 }
 
+.sponsor-card-dovetail img {
+  height: 150px;
+  object-fit: contain;
+  object-position: center;
+}
+
 .sponsor-card h3 {
   margin: 18px 0 0;
   padding-top: 14px;
